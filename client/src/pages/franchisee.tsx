@@ -729,12 +729,12 @@ export default function FranchiseePage() {
               {
                 n: 3,
                 title: 'LEADS COME IN. WE WORK THEM.',
-                body: 'Every lead gets hit with a text, email, and a call. We follow up until they sign or they tell us no. Nothing sits.',
+                body: 'Every lead gets hit with texts, emails, and calls. We follow up relentlessly until they sign or they tell us no. Nothing sits.',
               },
               {
                 n: 4,
                 title: 'COMMUNITY LEADS FROM YOU',
-                body: 'We need 250 leads from you. These come from getting out there — pop-up events, B2B partnerships, local networking. Standard stuff for any studio opening, but it\'s what activates the guarantee.',
+                body: 'We need 250 leads from you. Pop-up events, B2B partnerships, local networking — this is your first chance to plant your flag in the community and start building the culture of your studio before the doors even open. It also activates the guarantee.',
               },
               {
                 n: 5,
@@ -755,7 +755,7 @@ export default function FranchiseePage() {
           </div>
 
           <p className="text-2xl md:text-3xl font-black text-white text-center mt-20 leading-tight" data-testid="text-closing">
-            Let's build the STRONGest studio opening in Pilates.
+            Set the tone from day one. 250 members waiting when the doors open.
           </p>
         </div>
       </section>
