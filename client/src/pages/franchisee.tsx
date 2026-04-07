@@ -569,15 +569,37 @@ export default function FranchiseePage() {
             {/* RIGHT: Output cards */}
             <div className="space-y-4">
 
-              {/* Card 1: YOUR REVENUE — hero */}
+              {/* Card 1: YOUR REVENUE — hero (includes ROI Multiple) */}
               <Card className="bg-[#171717] border-[#262626] border-l-4 border-l-[#A8CFEA]" data-testid="card-revenue">
-                <CardContent className="p-6">
-                  <h3 className="text-gray-500 font-bold uppercase tracking-widest text-xs mb-4">YOUR REVENUE</h3>
-                  <div className="text-4xl md:text-5xl font-bold text-white leading-none" data-testid="text-lifetime-revenue">
-                    {formatMoney(lifetimeRevenue)}
+                <CardContent className="p-8">
+                  <h3 className="text-gray-500 font-bold uppercase tracking-widest text-xs mb-6">YOUR REVENUE</h3>
+
+                  {/* Two hero numbers side by side */}
+                  <div className="flex items-start gap-0">
+                    {/* Left: Lifetime Revenue */}
+                    <div className="flex-1">
+                      <p className="text-gray-600 font-bold uppercase tracking-widest text-[10px] mb-2">LIFETIME REVENUE</p>
+                      <div className="text-4xl font-bold text-white leading-none" data-testid="text-lifetime-revenue">
+                        {formatMoney(lifetimeRevenue)}
+                      </div>
+                      <p className="text-xs text-gray-500 mt-1.5">over member lifetime</p>
+                    </div>
+
+                    {/* Vertical divider */}
+                    <div className="w-px bg-[#262626] self-stretch mx-6" />
+
+                    {/* Right: ROI Multiple */}
+                    <div className="flex-1">
+                      <p className="text-gray-600 font-bold uppercase tracking-widest text-[10px] mb-2">ROI MULTIPLE</p>
+                      <div className="text-4xl font-bold text-[#A8CFEA] leading-none" data-testid="text-roi">
+                        {roi.toFixed(1)}x
+                      </div>
+                      <p className="text-xs text-gray-500 mt-1.5">return on investment</p>
+                    </div>
                   </div>
-                  <p className="text-sm text-gray-500 mt-1 mb-4">over member lifetime</p>
-                  <div className="border-t border-[#262626] pt-4 space-y-1.5 text-sm text-gray-400">
+
+                  {/* Detail rows */}
+                  <div className="border-t border-[#262626] mt-6 pt-5 space-y-2 text-sm text-gray-400">
                     <div className="flex justify-between">
                       <span>Members</span>
                       <span data-testid="text-revenue-members">{members}</span>
@@ -587,8 +609,9 @@ export default function FranchiseePage() {
                       <span data-testid="text-monthly-revenue">{formatMoney(monthlyRevenue)}/month</span>
                     </div>
                   </div>
+
                   {studios > 1 && (
-                    <div className="mt-4 pt-3 border-t border-[#262626] flex justify-between text-[#A8CFEA] font-semibold text-sm" data-testid="text-all-studios-revenue">
+                    <div className="mt-4 pt-4 border-t border-[#262626] flex justify-between text-[#A8CFEA] font-semibold text-sm" data-testid="text-all-studios-revenue">
                       <span>× {studios} studios</span>
                       <span>= {formatMoney(lifetimeAllStudios)}</span>
                     </div>
@@ -635,17 +658,6 @@ export default function FranchiseePage() {
                       </div>
                     )}
                   </div>
-                </CardContent>
-              </Card>
-
-              {/* Card 3: ROI MULTIPLE */}
-              <Card className="bg-[#171717] border-[#262626]" data-testid="card-roi">
-                <CardContent className="p-6">
-                  <h3 className="text-gray-500 font-bold uppercase tracking-widest text-xs mb-4">ROI MULTIPLE</h3>
-                  <div className="text-5xl font-black text-[#A8CFEA]" data-testid="text-roi">
-                    {roi.toFixed(1)}x
-                  </div>
-                  <p className="text-sm text-gray-500 mt-2">Return on investment over member lifetime</p>
                 </CardContent>
               </Card>
             </div>
