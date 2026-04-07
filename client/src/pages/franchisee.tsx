@@ -724,7 +724,7 @@ export default function FranchiseePage() {
               {
                 n: 2,
                 title: 'KICK OFF YOUR 16-WEEK CAMPAIGN',
-                body: 'We build your Meta campaigns and launch them 16 weeks out from opening. Your $25,000 ad spend goes straight to Meta — we manage everything from creative to targeting to budget.',
+                body: 'We build your Meta campaigns and launch them 16 weeks out from opening. Your $25,000 ad spend goes straight to Meta — we manage everything from targeting to budget.',
               },
               {
                 n: 3,
@@ -734,7 +734,7 @@ export default function FranchiseePage() {
               {
                 n: 4,
                 title: 'COMMUNITY LEADS FROM YOU',
-                body: 'We need 250 leads from you — people in your community who know you or know STRONG. Friends, neighbors, local regulars. These convert at a higher rate than any ad and they\'re what makes the guarantee work.',
+                body: 'We need 250 leads from you. These come from getting out there — pop-up events, B2B partnerships, local networking. Standard stuff for any studio opening, but it\'s what activates the guarantee.',
               },
               {
                 n: 5,
