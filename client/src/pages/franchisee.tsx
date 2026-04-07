@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Link } from 'wouter';
 import {
   ShieldCheck,
+  Shield,
   Zap,
   AlertTriangle,
   Clock,
@@ -13,6 +14,7 @@ import {
   DollarSign,
   Users,
   ChevronLeft,
+  ChevronRight,
   Play,
   Pause,
 } from 'lucide-react';
@@ -32,149 +34,157 @@ const formatTime = (s: number) => {
   return `${m}:${sec.toString().padStart(2, '0')}`;
 };
 
-// Interactive process flow graphic
-function ProcessFlow() {
-  const [active, setActive] = useState<number | null>(null);
+const CAROUSEL_STEPS = [
+  {
+    Icon: Target,
+    title: 'We Run the Ads',
+    body: "We build and manage your entire Facebook & Instagram campaign. Every ad, every audience, every dollar of your $25,000 spend — managed by us across your full 16-week pre-launch period.",
+  },
+  {
+    Icon: Phone,
+    title: 'We Work the Leads',
+    body: "Every lead gets contacted immediately via text, email, and phone call. Multiple touchpoints, persistent follow-up, no lead left sitting. We don't hand off leads — we close them.",
+  },
+  {
+    Icon: Zap,
+    title: 'One Team. One Goal.',
+    body: "Our entire team is compensated on membership sales — not leads, not calls. Marketing and sales are one feedback loop. Bad leads get fixed overnight. Weak scripts get rewritten the same day. No finger-pointing. Only results.",
+  },
+  {
+    Icon: Shield,
+    title: '250 Members or Prorated Refund',
+    body: "Provide 250 community leads and complete your $25,000 Meta ad spend — if we deliver fewer than 250 members, we refund you dollar-for-dollar for every member short. No fine print. Just accountability.",
+  },
+];
 
-  const nodes = [
-    {
-      Icon: Target,
-      label: 'Meta Ads',
-      content:
-        "We build and run your entire Facebook & Instagram campaign — every ad, every audience, every dollar of your $25,000 spend managed by us over 16 weeks.",
-    },
-    {
-      Icon: Phone,
-      label: 'Every Lead',
-      content:
-        "Every lead is worked immediately via text, email, and phone. Multiple touchpoints, persistent nurture. We don't hand off leads — we close them.",
-    },
-    {
-      Icon: Zap,
-      label: 'One Loop',
-      content:
-        "Our entire team is paid on membership sales — not leads, not calls. Marketing and sales are one feedback loop. Bad leads get fixed overnight. No blame. Only results.",
-    },
-    {
-      Icon: ShieldCheck,
-      label: 'Guaranteed',
-      content:
-        "250 members or a prorated refund. Provide 250 community leads and complete $25K in Meta ad spend — if we fall short, you get money back for every member we missed.",
-    },
-  ];
+const STEP_DURATION = 4000;
+
+function StepCarousel() {
+  const [step, setStep] = useState(0);
+  const [visible, setVisible] = useState(true);
+  const [progressKey, setProgressKey] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const goTo = (next: number) => {
+    setVisible(false);
+    setTimeout(() => {
+      setStep(next);
+      setVisible(true);
+      setProgressKey((k) => k + 1);
+    }, 200);
+  };
+
+  const resetTimer = () => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setStep((s) => {
+        const next = (s + 1) % CAROUSEL_STEPS.length;
+        setVisible(false);
+        setTimeout(() => {
+          setStep(next);
+          setVisible(true);
+          setProgressKey((k) => k + 1);
+        }, 200);
+        return s;
+      });
+    }, STEP_DURATION);
+  };
+
+  useEffect(() => {
+    resetTimer();
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, []);
+
+  const handleNav = (dir: 'prev' | 'next') => {
+    const next = dir === 'next'
+      ? (step + 1) % CAROUSEL_STEPS.length
+      : (step - 1 + CAROUSEL_STEPS.length) % CAROUSEL_STEPS.length;
+    goTo(next);
+    resetTimer();
+  };
+
+  const handleDot = (i: number) => {
+    goTo(i);
+    resetTimer();
+  };
+
+  const { Icon, title, body } = CAROUSEL_STEPS[step];
 
   return (
-    <div>
+    <div className="flex flex-col items-center" data-testid="step-carousel">
       <style>{`
-        @keyframes dotSlide { 0% { left: 0% } 100% { left: 100% } }
-        @keyframes pf-fadein { from { opacity: 0; transform: translateY(4px) } to { opacity: 1; transform: translateY(0) } }
-        .dot-slide { animation: dotSlide 2s linear infinite; }
-        .pf-tooltip { animation: pf-fadein 150ms ease both; }
+        @keyframes progress-fill { from { width: 0% } to { width: 100% } }
+        .progress-fill { animation: progress-fill ${STEP_DURATION}ms linear both; }
       `}</style>
 
-      {/* ── Desktop: horizontal row ── */}
-      <div className="hidden md:flex items-start justify-center max-w-[700px] mx-auto">
-        {nodes.map(({ Icon, label, content }, i) => {
-          const isActive = active === i;
-          const connectorLit = active === i || active === i + 1;
-          return (
-            <div key={i} className="flex items-start">
-              {/* Node column */}
-              <div className="relative flex flex-col items-center" style={{ width: 140 }}>
-                <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center cursor-pointer transition-all duration-150"
-                  style={{ background: '#171717', border: `1px solid ${isActive ? '#A8CFEA' : '#262626'}` }}
-                  onMouseEnter={() => setActive(i)}
-                  onMouseLeave={() => setActive(null)}
-                  onClick={() => setActive(active === i ? null : i)}
-                  data-testid={`node-${i}`}
-                >
-                  <Icon size={24} color={isActive ? '#ffffff' : '#A8CFEA'} />
-                </div>
-                <span
-                  className="mt-3 text-[11px] uppercase tracking-widest text-center transition-colors duration-150 leading-tight"
-                  style={{ color: isActive ? '#A8CFEA' : '#6b7280' }}
-                >
-                  {label}
-                </span>
-                {isActive && (
-                  <div
-                    className="pf-tooltip absolute z-10 rounded-xl text-sm leading-relaxed"
-                    style={{
-                      top: 'calc(100% + 14px)',
-                      left: '50%',
-                      transform: 'translateX(-50%)',
-                      background: '#171717',
-                      border: '1px solid #262626',
-                      color: '#9ca3af',
-                      maxWidth: 260,
-                      padding: '14px 18px',
-                      whiteSpace: 'normal',
-                    }}
-                  >
-                    {content}
-                  </div>
-                )}
-              </div>
-              {/* Connector */}
-              {i < nodes.length - 1 && (
-                <div className="flex items-center shrink-0" style={{ marginTop: 32, width: 20 }}>
-                  <div
-                    className="relative w-full transition-colors duration-150"
-                    style={{ height: 1, background: connectorLit ? '#A8CFEA' : '#262626' }}
-                  >
-                    {connectorLit && (
-                      <div
-                        className="dot-slide absolute"
-                        style={{ width: 6, height: 6, borderRadius: '50%', background: '#A8CFEA', top: -2.5 }}
-                      />
-                    )}
-                  </div>
-                </div>
-              )}
+      {/* Row: arrow + card + arrow */}
+      <div className="flex items-center gap-4 w-full max-w-[760px]">
+        {/* Left arrow */}
+        <button
+          onClick={() => handleNav('prev')}
+          className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-150 group"
+          style={{ background: '#171717', border: '1px solid #262626' }}
+          data-testid="carousel-prev"
+        >
+          <ChevronLeft size={18} className="text-[#6b7280] group-hover:text-[#A8CFEA] transition-colors duration-150" />
+        </button>
+
+        {/* Card */}
+        <div
+          className="flex-1 rounded-2xl"
+          style={{ background: '#171717', border: '1px solid #262626', minHeight: 280 }}
+        >
+          <div
+            className="flex flex-col p-10 transition-opacity duration-200"
+            style={{ opacity: visible ? 1 : 0 }}
+            data-testid="carousel-card-content"
+          >
+            <div
+              className="w-16 h-16 rounded-full flex items-center justify-center shrink-0"
+              style={{ background: '#262626' }}
+            >
+              <Icon size={32} color="#A8CFEA" />
             </div>
-          );
-        })}
+            <h3 className="text-white font-bold mt-5" style={{ fontSize: 28 }} data-testid="carousel-title">
+              {title}
+            </h3>
+            <p className="text-[#9ca3af] mt-3" style={{ fontSize: 16, lineHeight: 1.75 }} data-testid="carousel-body">
+              {body}
+            </p>
+          </div>
+        </div>
+
+        {/* Right arrow */}
+        <button
+          onClick={() => handleNav('next')}
+          className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-150 group"
+          style={{ background: '#171717', border: '1px solid #262626' }}
+          data-testid="carousel-next"
+        >
+          <ChevronRight size={18} className="text-[#6b7280] group-hover:text-[#A8CFEA] transition-colors duration-150" />
+        </button>
       </div>
 
-      {/* ── Mobile: vertical stack ── */}
-      <div className="flex md:hidden flex-col items-center">
-        {nodes.map(({ Icon, label, content }, i) => {
-          const isActive = active === i;
-          return (
-            <div key={i} className="flex flex-col items-center w-full max-w-xs">
-              <div
-                className="flex items-center gap-4 w-full cursor-pointer"
-                onClick={() => setActive(active === i ? null : i)}
-                data-testid={`node-mobile-${i}`}
-              >
-                <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center shrink-0 transition-all duration-150"
-                  style={{ background: '#171717', border: `1px solid ${isActive ? '#A8CFEA' : '#262626'}` }}
-                >
-                  <Icon size={24} color={isActive ? '#ffffff' : '#A8CFEA'} />
-                </div>
-                <span
-                  className="text-[11px] uppercase tracking-widest transition-colors duration-150"
-                  style={{ color: isActive ? '#A8CFEA' : '#6b7280' }}
-                >
-                  {label}
-                </span>
-              </div>
-              {isActive && (
-                <div
-                  className="pf-tooltip mt-3 rounded-xl text-sm leading-relaxed w-full"
-                  style={{ background: '#171717', border: '1px solid #262626', color: '#9ca3af', padding: '14px 18px' }}
-                >
-                  {content}
-                </div>
-              )}
-              {i < nodes.length - 1 && (
-                <div style={{ width: 1, height: 28, background: '#262626', marginTop: 8, marginBottom: 8 }} />
-              )}
-            </div>
-          );
-        })}
+      {/* Dots + progress bar */}
+      <div className="flex flex-col items-center gap-3 mt-6 w-full max-w-[680px]">
+        <div className="flex items-center gap-3">
+          {CAROUSEL_STEPS.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => handleDot(i)}
+              className="w-2 h-2 rounded-full transition-all duration-150 cursor-pointer"
+              style={{ background: i === step ? '#A8CFEA' : '#262626' }}
+              data-testid={`carousel-dot-${i}`}
+            />
+          ))}
+        </div>
+        <div className="w-full h-[2px] rounded-full" style={{ background: '#262626' }}>
+          <div
+            key={progressKey}
+            className="progress-fill h-full rounded-full"
+            style={{ background: '#A8CFEA' }}
+          />
+        </div>
       </div>
     </div>
   );
@@ -396,7 +406,7 @@ export default function FranchiseePage() {
             <p className="text-gray-400 text-lg max-w-2xl mx-auto" data-testid="text-how-subtitle">One team. One feedback loop. No excuses.</p>
           </div>
 
-          <ProcessFlow />
+          <StepCarousel />
         </div>
       </section>
 

@@ -1,0 +1,79 @@
+Replace the entire "How Revryze Works" section interactive graphic in franchisee.tsx with a single large auto-advancing card carousel. Read the existing file first.
+
+## THE NEW DESIGN
+
+One large centered card that cycles through four steps automatically. Clean, dark, premium — never cramped.
+
+## LAYOUT
+
+Centered on the page, max-width 680px. The card is tall enough to breathe — minimum 280px height. Below the card, a progress bar shows how far through the current step's timer you are. Left and right arrow buttons let the user manually navigate. Clicking the progress bar dots also jumps to that step.
+
+## AUTO-ADVANCE
+
+Each step displays for 4 seconds then smoothly transitions to the next. Progress bar fills from 0% to 100% over 4 seconds in #A8CFEA. When the user manually clicks an arrow or dot, the timer resets for the new step. Loops back to step 1 after step 4.
+
+## THE FOUR STEPS
+
+Step 1
+Icon: Target (lucide-react)
+Title: "We Run the Ads"
+Body: "We build and manage your entire Facebook & Instagram campaign. Every ad, every audience, every dollar of your $25,000 spend — managed by us across your full 16-week pre-launch period."
+
+Step 2
+Icon: Phone (lucide-react)
+Title: "We Work the Leads"
+Body: "Every lead gets contacted immediately via text, email, and phone call. Multiple touchpoints, persistent follow-up, no lead left sitting. We don't hand off leads — we close them."
+
+Step 3
+Icon: Zap (lucide-react)
+Title: "One Team. One Goal."
+Body: "Our entire team is compensated on membership sales — not leads, not calls. Marketing and sales are one feedback loop. Bad leads get fixed overnight. Weak scripts get rewritten the same day. No finger-pointing. Only results."
+
+Step 4
+Icon: Shield (lucide-react)
+Title: "250 Members or Prorated Refund"
+Body: "Provide 250 community leads and complete your $25,000 Meta ad spend — if we deliver fewer than 250 members, we refund you dollar-for-dollar for every member short. No fine print. Just accountability."
+
+## CARD STYLING
+
+- Card background: #171717
+- Card border: 1px solid #262626
+- Border radius: rounded-2xl
+- Padding: 40px 48px
+- Icon: 32px, colored #A8CFEA, inside a 64px circle with background #262626
+- Title: 28px, font-bold, white, margin-top 20px
+- Body: 16px, #9ca3af, line-height 1.75, margin-top 12px
+- Card transition: opacity fade 200ms when switching steps — fade out, swap content, fade in
+
+## PROGRESS BAR
+
+Below the card, four dots in a row centered. Active dot is filled #A8CFEA, inactive dots are #262626. Between the dots or below them, a thin full-width progress bar (height 2px, background #262626) with a fill that animates from 0% to 100% over 4 seconds in #A8CFEA. Resets when step changes.
+
+## NAVIGATION ARROWS
+
+Left and right chevron buttons (ChevronLeft, ChevronRight from lucide-react) on either side of the card. 
+- Button background: #171717
+- Border: 1px solid #262626  
+- Size: 40px × 40px, rounded-full
+- Icon color: #6b7280
+- On hover: border becomes #A8CFEA, icon becomes #A8CFEA
+- Clicking left goes to previous step (wraps from step 1 to step 4)
+- Clicking right goes to next step (wraps from step 4 to step 1)
+- Both reset the auto-advance timer
+
+## SECTION WRAPPER
+
+Keep the existing section headline and subheading exactly as they are:
+- "How Revryze Works."
+- "One team. One feedback loop. No excuses."
+
+Remove all old node/graphic code entirely. Replace with just this carousel component.
+
+## TECHNICAL
+
+- Use React useState for activeStep (0-3) and useEffect + setInterval for auto-advance
+- Use useEffect to reset the interval when activeStep changes via manual navigation
+- Progress bar fill: use a CSS animation keyframe that goes from width 0% to width 100% over 4s linear — re-trigger by changing a key prop on the element when step changes
+- Smooth fade: use opacity transition on the card content div, not the whole card
+- No new dependencies
+- Do not touch any other section
