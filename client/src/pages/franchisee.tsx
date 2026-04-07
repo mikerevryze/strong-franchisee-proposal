@@ -57,66 +57,30 @@ const CAROUSEL_STEPS = [
   },
 ];
 
-const STEP_DURATION = 4000;
-
 function StepCarousel() {
   const [step, setStep] = useState(0);
   const [visible, setVisible] = useState(true);
-  const [progressKey, setProgressKey] = useState(0);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const goTo = (next: number) => {
     setVisible(false);
     setTimeout(() => {
       setStep(next);
       setVisible(true);
-      setProgressKey((k) => k + 1);
     }, 200);
   };
-
-  const resetTimer = () => {
-    if (timerRef.current) clearInterval(timerRef.current);
-    timerRef.current = setInterval(() => {
-      setStep((s) => {
-        const next = (s + 1) % CAROUSEL_STEPS.length;
-        setVisible(false);
-        setTimeout(() => {
-          setStep(next);
-          setVisible(true);
-          setProgressKey((k) => k + 1);
-        }, 200);
-        return s;
-      });
-    }, STEP_DURATION);
-  };
-
-  useEffect(() => {
-    resetTimer();
-    return () => { if (timerRef.current) clearInterval(timerRef.current); };
-  }, []);
 
   const handleNav = (dir: 'prev' | 'next') => {
     const next = dir === 'next'
       ? (step + 1) % CAROUSEL_STEPS.length
       : (step - 1 + CAROUSEL_STEPS.length) % CAROUSEL_STEPS.length;
     goTo(next);
-    resetTimer();
-  };
-
-  const handleDot = (i: number) => {
-    goTo(i);
-    resetTimer();
   };
 
   const { Icon, title, body } = CAROUSEL_STEPS[step];
+  const progressPct = ((step + 1) / CAROUSEL_STEPS.length) * 100;
 
   return (
     <div className="flex flex-col items-center" data-testid="step-carousel">
-      <style>{`
-        @keyframes progress-fill { from { width: 0% } to { width: 100% } }
-        .progress-fill { animation: progress-fill ${STEP_DURATION}ms linear both; }
-      `}</style>
-
       {/* Row: arrow + card + arrow */}
       <div className="flex items-center gap-4 w-full max-w-[760px]">
         {/* Left arrow */}
@@ -165,13 +129,13 @@ function StepCarousel() {
         </button>
       </div>
 
-      {/* Dots + progress bar */}
+      {/* Dots + static progress bar */}
       <div className="flex flex-col items-center gap-3 mt-6 w-full max-w-[680px]">
         <div className="flex items-center gap-3">
           {CAROUSEL_STEPS.map((_, i) => (
             <button
               key={i}
-              onClick={() => handleDot(i)}
+              onClick={() => goTo(i)}
               className="w-2 h-2 rounded-full transition-all duration-150 cursor-pointer"
               style={{ background: i === step ? '#A8CFEA' : '#262626' }}
               data-testid={`carousel-dot-${i}`}
@@ -180,9 +144,8 @@ function StepCarousel() {
         </div>
         <div className="w-full h-[2px] rounded-full" style={{ background: '#262626' }}>
           <div
-            key={progressKey}
-            className="progress-fill h-full rounded-full"
-            style={{ background: '#A8CFEA' }}
+            className="h-full rounded-full transition-all duration-200"
+            style={{ width: `${progressPct}%`, background: '#A8CFEA' }}
           />
         </div>
       </div>
