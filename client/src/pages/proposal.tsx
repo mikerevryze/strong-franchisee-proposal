@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'wouter';
 import { 
   ShieldCheck, 
   Zap, 
@@ -14,7 +15,8 @@ import {
   Building2,
   DollarSign,
   Users,
-  Megaphone
+  Megaphone,
+  ChevronRight
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
@@ -60,6 +62,14 @@ export default function ProposalPage() {
 
   return (
     <div className="min-h-screen pb-24 bg-[#0a0a0a] text-white font-sans selection:bg-[#CCFF00] selection:text-black">
+
+      {/* FRANCHISEE NAV LINK */}
+      <div className="px-6 pt-5 max-w-7xl mx-auto flex justify-end">
+        <Link href="/franchisee" className="text-gray-600 hover:text-gray-400 text-sm transition-colors flex items-center gap-1 w-fit" data-testid="link-franchisee-proposal">
+          Franchisee Proposal
+          <ChevronRight size={14} />
+        </Link>
+      </div>
       
       {/* HERO SECTION */}
       <section className="relative pt-24 pb-20 px-6 max-w-7xl mx-auto" data-testid="section-hero">

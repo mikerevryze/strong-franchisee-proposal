@@ -1,0 +1,253 @@
+I need you to build a franchisee-facing proposal page for this existing app. Read all existing files first to understand the structure, then implement everything below.
+
+Create client/src/pages/franchisee.tsx and add a /franchisee route to the wouter router.
+
+---
+
+## CRITICAL FRAMING
+
+This page is for a STRONG Pilates franchisee — an individual studio owner. Never mention royalties, HQ income, rebates, franchisor revenue, or anything about what STRONG corporate earns. Everything is about the franchisee's own investment, members, revenue, and path to profitability.
+
+---
+
+## DESIGN
+
+Same dark premium design as the existing proposal page:
+- Background: #0a0a0a
+- Surfaces: #171717
+- Borders: #262626
+- Primary accent: #A8CFEA (STRONG blue) — headlines, highlights, CTAs, progress bars
+- Revryze green: #00E87C — Revryze brand elements and success states only
+- Font: Inter, same weights as existing page
+- Same shadcn/ui components, Tailwind classes, lucide-react icons
+- Mobile responsive throughout
+- Top badge: "STRONG PILATES x REVRYZE"
+
+---
+
+## NAVIGATION
+
+At the very top of the franchisee page, add a small muted text link: "← Franchisor Proposal" linking to /
+
+On the existing proposal.tsx page, add a small muted text link at the top: "Franchisee Proposal →" linking to /franchisee
+
+---
+
+## SECTION 1 — HERO
+
+Headline line 1 (white, font-black): 250 MEMBERS.
+Headline line 2 (#A8CFEA, font-black): OR YOU GET REFUNDED.
+Subheading: "Dedicated US-based sales team. Guaranteed member acquisition. Prorated refund if we miss."
+
+Two cards side by side:
+
+Problem card:
+- Label: THE PROBLEM (red/destructive color)
+- Headline: "Slow Ramp. Missed Revenue."
+- Bullets with red icons:
+  - You're busy with build-out, hiring, and operations.
+  - Every empty slot is lost monthly revenue — forever.
+  - Without a dedicated sales team, momentum stalls fast.
+
+Solution card:
+- Label: THE SOLUTION (#A8CFEA)
+- Headline: "Full. Fast. Profitable."
+- Bullets with green icons:
+  - Dedicated US-based sales team fills your studio before you open.
+  - 250-member guarantee. Prorated refund if we fall short.
+  - You focus on running the studio. We fill it.
+
+---
+
+## SECTION 2 — HOW REVRYZE WORKS
+
+Section headline: "How Revryze Works."
+Subheading: "One team. One feedback loop. No excuses."
+
+Four cards in a 2x2 grid:
+
+Card 1 — WE RUN YOUR META ADS (Target icon)
+"We build and manage your entire Meta (Facebook & Instagram) ad campaign. Every ad, every audience, every dollar of your $25,000 ad spend is managed by us — launched during your 16-week pre-opening period to flood your pipeline with leads before day one."
+
+Card 2 — WE WORK EVERY LEAD (Phone icon)
+"Every lead that comes in gets worked immediately. Our team follows up via text, email, and phone call — multiple touchpoints, persistent nurture, no lead left sitting. We don't generate leads and hand them off. We close them."
+
+Card 3 — ONE TEAM. ONE GOAL. (Zap icon)
+"Most fitness businesses suffer from the blame game — sales blames marketing for bad leads, marketing blames sales for not closing. At Revryze, our entire team is compensated on membership sales. Marketing and sales are one feedback loop. Bad leads get fixed immediately. Weak scripts get rewritten overnight. There is no finger-pointing — only results."
+
+Below the Card 3 text, add a circular SVG diagram showing the feedback loop cycle:
+Ads → Leads → Nurture → Sales → Feedback → Better Ads → back to Ads
+Six nodes evenly spaced in a circle. Node backgrounds: #171717. Node text: #00E87C. Connecting curved arrows: #A8CFEA. Clean and minimal.
+
+Card 4 — 250 MEMBERS OR WE REFUND YOU (Shield icon)
+"When you provide 250 community-driven leads and complete your $25,000 Meta ad spend, you are covered. If we deliver fewer than 250 members, we refund you dollar-for-dollar for every member short. No fine print. No blame. Just accountability."
+
+---
+
+## SECTION 3 — PRICING
+
+Section headline: "250 Members. Guaranteed."
+Subheading: "One fee. One team. One number to hit."
+
+Single centered pricing card:
+- Badge: STANDARD
+- Price: $40,000
+- Subtext: Per Studio (You Pay Once)
+- Feature list:
+  - 250-member guarantee
+  - Full Meta ad management included
+  - Lead nurture via text, email, and phone
+  - Prorated refund protection
+  - Dedicated US-based sales team
+  - 16-week pre-launch campaign
+
+Below card — refund explainer box (dark surface, accent border):
+Title: "HOW THE REFUND WORKS"
+Body: "At $40,000 for 250 members, each member = $160. If Revryze delivers 200 of 250 members → refund = 50 × $160 = $8,000. You only pay for what you get."
+
+Below that — qualification box (muted/secondary surface):
+Title: "REFUND QUALIFICATION REQUIREMENTS"
+Body:
+✓ Provide 250 community-driven leads to the Revryze sales team
+✓ Complete $25,000 in Meta ad spend over the 16-week pre-launch period (paid directly to Meta, managed by Revryze)
+Both conditions must be met. When they are, any shortfall is fully refunded.
+
+Small note: "The $25,000 Meta ad spend is paid directly to the ad platform — separate from the Revryze service fee and required to activate the guarantee."
+
+---
+
+## SECTION 4 — CALCULATOR
+
+Section headline: "See Your Numbers."
+Subheading: "Adjust the sliders. See your investment, your revenue, and your path to break-even."
+
+All values update instantly on every slider change. No submit button.
+
+LEFT SIDE — four sliders:
+
+Slider 1: YOUR STUDIO OPENINGS
+Range: 1–5, default: 1
+Helper text: "Each studio uses the same economics."
+
+Slider 2: MEMBERS DELIVERED
+Range: 100–500, default: 250
+Dynamic helper text below slider:
+- If value = 250: "At guarantee — no refund needed." (muted gray)
+- If value < 250: "Refund = [250 - value] × $160 = $[refund amount]" (#A8CFEA)
+- If value > 250: "Above guarantee — [value - 250] bonus members!" (#00E87C)
+
+Slider 3: AVG MONTHLY MEMBERSHIP VALUE
+Range: $50–$300, default: $150
+Helper text: "Monthly revenue per active member"
+
+Slider 4: AVG MEMBER LIFETIME
+Range: 6–36 months, default: 14
+Helper text: "Average months a member stays active"
+
+RIGHT SIDE — three output cards:
+
+Card A: YOUR INVESTMENT
+Line items:
+- Revryze Fee (gross): $40,000
+- Franchisor Rebate: [only show if > $0, pulled from... actually this page has NO rebate — skip this line entirely]
+- Prorated Refund: -$[refund] shown in #00E87C — ONLY visible when members < 250, hidden otherwise
+- Net Paid to Revryze: $[40,000 - refund] — label: "What you pay Revryze"
+- Meta Ad Spend: $25,000 (always fixed) — subtext: "Paid directly to Meta. Not on Revryze invoice."
+- Divider line
+- TOTAL INVESTMENT: $[net paid to revryze + 25000] bold and larger
+  subtext: "Your total all-in cost per studio"
+- If studios > 1: show below "× [X] studios = $[total across all studios]"
+
+Math:
+- refund = members < 250 ? (250 - members) × 160 : 0
+- net paid to revryze = 40000 - refund
+- total investment per studio = net paid to revryze + 25000
+- total all studios = total investment per studio × studios
+
+Card B: YOUR REVENUE
+- Members: [slider value]
+- Monthly Revenue: $[members × monthly value] /month
+- Lifetime Revenue: $[members × monthly value × lifetime]
+- If studios > 1: show total lifetime revenue across all studios
+
+Card C: BREAK-EVEN
+Show large in #A8CFEA: "[X.X] months to break even"
+Subtext: "At [members] members paying $[monthly value]/month"
+Formula: total investment per studio ÷ (members × monthly value) = months
+Round to 1 decimal place.
+
+Below all cards, ROI stat:
+"[Xx] return on investment over member lifetime"
+Formula: (members × monthly value × lifetime) ÷ total investment per studio
+Format as e.g. "5.2x"
+
+---
+
+## SECTION 5 — REAL RESULTS
+
+Section headline: "Real Results. Real Calls."
+Subheading: "Listen to live sales. See the case studies."
+
+Three cards in a row, same layout as the existing proposal.tsx Real Results section. Copy the exact card component structure from proposal.tsx.
+
+Card 1 — Live Sales Call
+"Hear real-time lead conversion."
+On click: expand the card in place (no page navigation) to show an inline audio player.
+Use the same audio source URL already in the codebase from the existing Live Sales Call card on proposal.tsx.
+Player styling: dark background #171717, custom play/pause button, scrubber bar with #A8CFEA fill, time display (current / total). Control via React useState. Audio continues playing if user scrolls away. Click the card again to collapse and stop playback.
+
+Card 2 — Franchise Growth Study
+"Predictable multi-location growth."
+Same click behavior as in proposal.tsx.
+
+Card 3 — Studio Relaunch
+"From 40 to 170+ members in 60 days."
+Same click behavior as in proposal.tsx.
+
+---
+
+## SECTION 6 — NEXT STEPS
+
+Section headline: "Let's Fill Your Studio."
+Subheading: "Here's exactly what happens when you move forward."
+
+Five numbered steps, vertical timeline layout with numbered circles on the left and content on the right:
+
+Step 1 — SIGN WITH REVRYZE
+"You sign directly with Revryze. One agreement, one fee ($40,000), one goal: 250 members in your studio."
+
+Step 2 — KICK OFF YOUR 16-WEEK CAMPAIGN
+"Revryze launches your Meta ad campaign immediately. Your $25,000 ad spend goes directly to Meta — we manage every dollar, every creative, every audience. You approve. We execute."
+
+Step 3 — LEADS COME IN. WE WORK THEM.
+"Every lead is contacted immediately via text, email, and phone. Our team nurtures every prospect through to a signed membership. You focus on your studio. We handle sales."
+
+Step 4 — COMMUNITY LEADS FROM YOU
+"You provide 250 community-driven leads from your local network — neighbors, gym-goers, local businesses. These warm leads combined with our paid traffic is what makes the guarantee possible."
+
+Step 5 — 250 MEMBERS OR YOUR MONEY BACK
+"When both conditions are met — 250 community leads provided, $25K Meta ad spend completed — if we fall short of 250 members, we refund you dollar-for-dollar for every member we missed. Full accountability. Zero risk."
+
+Closing line at very bottom, large centered white text, no button:
+"Let's build the STRONGest studio opening in Pilates."
+
+---
+
+## ROUTER
+
+In the main app routing file (likely client/src/App.tsx or similar), add:
+import FranchiseePage from "./pages/franchisee"
+And add the route: <Route path="/franchisee" component={FranchiseePage} />
+
+---
+
+## TECHNICAL RULES
+
+1. No new npm dependencies — use only what is already installed
+2. All calculator math is pure reactive state — useState hooks, updates on every onChange
+3. The $25,000 ad spend is hardcoded, never changes
+4. Refund only applies when members < 250. Above 250 = $0 refund
+5. Do not modify any existing files except: App.tsx (add route) and proposal.tsx (add nav link)
+6. Use lucide-react for all icons
+7. Mobile responsive — stack columns on small screens
+8. The circular SVG feedback loop diagram must be actual SVG code inline in the component, not an image
