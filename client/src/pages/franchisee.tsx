@@ -454,9 +454,9 @@ export default function FranchiseePage() {
             <p className="text-gray-400 text-lg max-w-2xl mx-auto" data-testid="text-calc-subtitle">Adjust the sliders. See your investment, your revenue, and your path to break-even.</p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8 items-start">
+          <div className="grid lg:grid-cols-2 gap-8 items-stretch">
             {/* LEFT: Sliders */}
-            <div className="space-y-5">
+            <div className="flex flex-col gap-5">
 
               {/* Slider 1: Studio Openings */}
               <Card className="bg-[#171717] border-[#262626] border-l-4 border-l-[#A8CFEA]" data-testid="card-slider-studios">
@@ -567,10 +567,10 @@ export default function FranchiseePage() {
             </div>
 
             {/* RIGHT: Output cards */}
-            <div className="space-y-4">
+            <div className="flex flex-col gap-4 h-full">
 
               {/* Card 1: YOUR REVENUE — hero (includes ROI Multiple) */}
-              <Card className="bg-[#171717] border-[#262626] border-l-4 border-l-[#A8CFEA]" data-testid="card-revenue">
+              <Card className="flex-1 bg-[#171717] border-[#262626] border-l-4 border-l-[#A8CFEA]" data-testid="card-revenue">
                 <CardContent className="p-8">
                   <h3 className="text-gray-500 font-bold uppercase tracking-widest text-xs mb-6">YOUR REVENUE</h3>
 
