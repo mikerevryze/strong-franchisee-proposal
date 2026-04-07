@@ -719,27 +719,27 @@ export default function FranchiseePage() {
               {
                 n: 1,
                 title: 'SIGN WITH REVRYZE',
-                body: 'You sign directly with Revryze. One agreement, one fee ($40,000), one goal: 250 members in your studio.',
+                body: 'One agreement, one fee, one goal. We get to work the day you sign.',
               },
               {
                 n: 2,
                 title: 'KICK OFF YOUR 16-WEEK CAMPAIGN',
-                body: 'Revryze launches your Meta ad campaign immediately. Your $25,000 ad spend goes directly to Meta — we manage every dollar, every creative, every audience. You approve. We execute.',
+                body: 'We build your Meta campaigns and launch them 16 weeks out from opening. Your $25,000 ad spend goes straight to Meta — we manage everything from creative to targeting to budget.',
               },
               {
                 n: 3,
                 title: 'LEADS COME IN. WE WORK THEM.',
-                body: 'Every lead is contacted immediately via text, email, and phone. Our team nurtures every prospect through to a signed membership. You focus on your studio. We handle sales.',
+                body: 'Every lead gets hit with a text, email, and a call. We follow up until they sign or they tell us no. Nothing sits.',
               },
               {
                 n: 4,
                 title: 'COMMUNITY LEADS FROM YOU',
-                body: 'You provide 250 community-driven leads from your local network — neighbors, gym-goers, local businesses. These warm leads combined with our paid traffic is what makes the guarantee possible.',
+                body: 'We need 250 leads from you — people in your community who know you or know STRONG. Friends, neighbors, local regulars. These convert at a higher rate than any ad and they\'re what makes the guarantee work.',
               },
               {
                 n: 5,
                 title: '250 MEMBERS OR YOUR MONEY BACK',
-                body: 'When both conditions are met — 250 community leads provided, $25K Meta ad spend completed — if we fall short of 250 members, we refund you dollar-for-dollar for every member we missed. Full accountability. Zero risk.',
+                body: 'Hit both requirements and we\'re fully accountable. If we come up short of 250 members, you get back $160 for every one we missed. No negotiation, no excuses.',
               },
             ].map((step) => (
               <div key={step.n} className="flex gap-6" data-testid={`step-${step.n}`}>
