@@ -567,9 +567,36 @@ export default function FranchiseePage() {
             </div>
 
             {/* RIGHT: Output cards */}
-            <div className="space-y-5">
+            <div className="space-y-4">
 
-              {/* Card A: Investment */}
+              {/* Card 1: YOUR REVENUE — hero */}
+              <Card className="bg-[#171717] border-[#262626] border-l-4 border-l-[#A8CFEA]" data-testid="card-revenue">
+                <CardContent className="p-6">
+                  <h3 className="text-gray-500 font-bold uppercase tracking-widest text-xs mb-4">YOUR REVENUE</h3>
+                  <div className="text-4xl md:text-5xl font-bold text-white leading-none" data-testid="text-lifetime-revenue">
+                    {formatMoney(lifetimeRevenue)}
+                  </div>
+                  <p className="text-sm text-gray-500 mt-1 mb-4">over member lifetime</p>
+                  <div className="border-t border-[#262626] pt-4 space-y-1.5 text-sm text-gray-400">
+                    <div className="flex justify-between">
+                      <span>Members</span>
+                      <span data-testid="text-revenue-members">{members}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Monthly Revenue</span>
+                      <span data-testid="text-monthly-revenue">{formatMoney(monthlyRevenue)}/month</span>
+                    </div>
+                  </div>
+                  {studios > 1 && (
+                    <div className="mt-4 pt-3 border-t border-[#262626] flex justify-between text-[#A8CFEA] font-semibold text-sm" data-testid="text-all-studios-revenue">
+                      <span>× {studios} studios</span>
+                      <span>= {formatMoney(lifetimeAllStudios)}</span>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Card 2: YOUR INVESTMENT */}
               <Card className="bg-[#171717] border-[#262626]" data-testid="card-investment">
                 <CardContent className="p-6">
                   <h3 className="text-gray-500 font-bold uppercase tracking-widest text-xs mb-5">YOUR INVESTMENT</h3>
@@ -611,34 +638,7 @@ export default function FranchiseePage() {
                 </CardContent>
               </Card>
 
-              {/* Card B: Revenue */}
-              <Card className="bg-[#171717] border-[#262626]" data-testid="card-revenue">
-                <CardContent className="p-6">
-                  <h3 className="text-gray-500 font-bold uppercase tracking-widest text-xs mb-5">YOUR REVENUE</h3>
-                  <div className="space-y-2 text-sm text-gray-400">
-                    <div className="flex justify-between">
-                      <span>Members</span>
-                      <span data-testid="text-revenue-members">{members}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Monthly Revenue</span>
-                      <span data-testid="text-monthly-revenue">{formatMoney(monthlyRevenue)} /month</span>
-                    </div>
-                    <div className="flex justify-between font-semibold text-white">
-                      <span>Lifetime Revenue</span>
-                      <span data-testid="text-lifetime-revenue">{formatMoney(lifetimeRevenue)}</span>
-                    </div>
-                    {studios > 1 && (
-                      <div className="pt-3 border-t border-[#262626] flex justify-between text-[#00E87C] font-semibold" data-testid="text-all-studios-revenue">
-                        <span>Total ({studios} studios)</span>
-                        <span>{formatMoney(lifetimeAllStudios)}</span>
-                      </div>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Card C: ROI Multiple */}
+              {/* Card 3: ROI MULTIPLE */}
               <Card className="bg-[#171717] border-[#262626]" data-testid="card-roi">
                 <CardContent className="p-6">
                   <h3 className="text-gray-500 font-bold uppercase tracking-widest text-xs mb-4">ROI MULTIPLE</h3>
