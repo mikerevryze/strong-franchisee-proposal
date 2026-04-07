@@ -1,0 +1,59 @@
+Completely redesign the "How Revryze Works" section in franchisee.tsx. Replace the current 2x2 card grid and broken SVG diagram with a single sleek interactive graphic that matches the dark premium aesthetic of the rest of the page.
+
+## THE NEW DESIGN
+
+Replace the entire section content with ONE centered interactive process flow. Four steps displayed horizontally (or in a clean arc on mobile: vertically). Each step is a minimal node — just an icon in a circle and a short 2-3 word label beneath it. Nodes are connected by thin lines with subtle animated dots traveling along them to suggest flow.
+
+When the user hovers over (desktop) or taps (mobile) a node, a clean tooltip/popover expands below or beside it showing the fuller explanation. Everything else stays dim. The hovered node and its connector lines glow in #A8CFEA.
+
+## THE FOUR NODES
+
+Node 1 — META ADS (Target icon)
+Label: "Meta Ads"
+Hover content: "We build and run your entire Facebook & Instagram campaign — every ad, every audience, every dollar of your $25,000 spend managed by us over 16 weeks."
+
+Node 2 — EVERY LEAD (Phone icon)  
+Label: "Every Lead"
+Hover content: "Every lead is worked immediately via text, email, and phone. Multiple touchpoints, persistent nurture. We don't hand off leads — we close them."
+
+Node 3 — ONE LOOP (Zap icon)
+Label: "One Loop"
+Hover content: "Our entire team is paid on membership sales — not leads, not calls. Marketing and sales are one feedback loop. Bad leads get fixed overnight. No blame. Only results."
+
+Node 4 — GUARANTEED (Shield icon)
+Label: "Guaranteed"
+Hover content: "250 members or a prorated refund. Provide 250 community leads and complete $25K in Meta ad spend — if we fall short, you get money back for every member we missed."
+
+## VISUAL STYLE
+
+- Section background: #0a0a0a (same as page)
+- Node circles: #171717 background, #262626 border (1px), 64px diameter
+- Icons inside nodes: 24px, #A8CFEA color
+- Connector lines between nodes: 1px, #262626, with a small dot animating along the line using CSS keyframes (dot color #A8CFEA, subtle, not distracting)
+- Node labels below circles: 11px, uppercase, letter-spacing widest, #6b7280 (muted)
+- On hover: node border becomes #A8CFEA, icon brightens to white, label brightens to #A8CFEA, connector lines adjacent to hovered node shift to #A8CFEA
+- Hover card/tooltip: appears below the node, #171717 background, #262626 border, rounded-xl, padding 16px 20px, max-width 280px, 14px body text in #9ca3af, smooth fade-in transition (150ms)
+- All transitions: transition-all duration-150
+
+## LAYOUT
+
+Desktop: four nodes in a single horizontal row, centered, with connector lines between them. Total width should not exceed 700px, centered on page.
+
+Mobile: stack vertically, connector lines become vertical, same hover/tap behavior.
+
+## SECTION WRAPPER
+
+Keep the section headline and subheading:
+- Headline: "How Revryze Works."  
+- Subheading: "One team. One feedback loop. No excuses."
+
+Remove ALL the old card text, the 2x2 grid, and the broken circular SVG diagram entirely. Replace with just the interactive node graphic described above.
+
+## TECHNICAL
+
+- Use React useState to track which node is active (hovered/tapped)
+- On desktop: onMouseEnter sets active node, onMouseLeave clears it
+- On mobile: onClick toggles active node
+- The animated dot on connector lines: use CSS animation with a small div absolutely positioned, animating left: 0% to left: 100% on a 2s linear infinite loop. Only animate on the connector adjacent to the active node, others stay static.
+- No new dependencies — use only existing Tailwind, lucide-react, and inline styles where needed
+- Do not touch any other section

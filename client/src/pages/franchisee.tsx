@@ -32,74 +32,151 @@ const formatTime = (s: number) => {
   return `${m}:${sec.toString().padStart(2, '0')}`;
 };
 
-// Circular SVG feedback loop diagram
-function FeedbackLoop() {
-  const nodes = ['Ads', 'Leads', 'Nurture', 'Sales', 'Feedback', 'Better Ads'];
-  const cx = 130;
-  const cy = 130;
-  const r = 90;
-  const nodeR = 32;
-  const n = nodes.length;
+// Interactive process flow graphic
+function ProcessFlow() {
+  const [active, setActive] = useState<number | null>(null);
 
-  const pts = nodes.map((_, i) => {
-    const angle = (2 * Math.PI * i) / n - Math.PI / 2;
-    return { x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle) };
-  });
-
-  const arrows = pts.map((from, i) => {
-    const to = pts[(i + 1) % n];
-    const dx = to.x - from.x;
-    const dy = to.y - from.y;
-    const len = Math.sqrt(dx * dx + dy * dy);
-    const ux = dx / len;
-    const uy = dy / len;
-    const sx = from.x + ux * nodeR;
-    const sy = from.y + uy * nodeR;
-    const ex = to.x - ux * nodeR;
-    const ey = to.y - uy * nodeR;
-    const midX = (sx + ex) / 2;
-    const midY = (sy + ey) / 2;
-    const perpX = midX + (-uy * 18);
-    const perpY = midY + (ux * 18);
-    return { sx, sy, ex, ey, perpX, perpY };
-  });
+  const nodes = [
+    {
+      Icon: Target,
+      label: 'Meta Ads',
+      content:
+        "We build and run your entire Facebook & Instagram campaign — every ad, every audience, every dollar of your $25,000 spend managed by us over 16 weeks.",
+    },
+    {
+      Icon: Phone,
+      label: 'Every Lead',
+      content:
+        "Every lead is worked immediately via text, email, and phone. Multiple touchpoints, persistent nurture. We don't hand off leads — we close them.",
+    },
+    {
+      Icon: Zap,
+      label: 'One Loop',
+      content:
+        "Our entire team is paid on membership sales — not leads, not calls. Marketing and sales are one feedback loop. Bad leads get fixed overnight. No blame. Only results.",
+    },
+    {
+      Icon: ShieldCheck,
+      label: 'Guaranteed',
+      content:
+        "250 members or a prorated refund. Provide 250 community leads and complete $25K in Meta ad spend — if we fall short, you get money back for every member we missed.",
+    },
+  ];
 
   return (
-    <svg width="260" height="260" viewBox="0 0 260 260" className="mx-auto my-4">
-      <defs>
-        <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-          <path d="M0,0 L0,6 L8,3 z" fill="#A8CFEA" />
-        </marker>
-      </defs>
-      {arrows.map((a, i) => (
-        <path
-          key={i}
-          d={`M ${a.sx} ${a.sy} Q ${a.perpX} ${a.perpY} ${a.ex} ${a.ey}`}
-          fill="none"
-          stroke="#A8CFEA"
-          strokeWidth="1.5"
-          markerEnd="url(#arrow)"
-          opacity="0.7"
-        />
-      ))}
-      {pts.map((p, i) => (
-        <g key={i}>
-          <circle cx={p.x} cy={p.y} r={nodeR} fill="#171717" stroke="#262626" strokeWidth="1.5" />
-          <text
-            x={p.x}
-            y={p.y}
-            textAnchor="middle"
-            dominantBaseline="middle"
-            fill="#00E87C"
-            fontSize="9"
-            fontWeight="700"
-            fontFamily="Inter, sans-serif"
-          >
-            {nodes[i]}
-          </text>
-        </g>
-      ))}
-    </svg>
+    <div>
+      <style>{`
+        @keyframes dotSlide { 0% { left: 0% } 100% { left: 100% } }
+        @keyframes pf-fadein { from { opacity: 0; transform: translateY(4px) } to { opacity: 1; transform: translateY(0) } }
+        .dot-slide { animation: dotSlide 2s linear infinite; }
+        .pf-tooltip { animation: pf-fadein 150ms ease both; }
+      `}</style>
+
+      {/* ── Desktop: horizontal row ── */}
+      <div className="hidden md:flex items-start justify-center max-w-[700px] mx-auto">
+        {nodes.map(({ Icon, label, content }, i) => {
+          const isActive = active === i;
+          const connectorLit = active === i || active === i + 1;
+          return (
+            <div key={i} className="flex items-start">
+              {/* Node column */}
+              <div className="relative flex flex-col items-center" style={{ width: 140 }}>
+                <div
+                  className="w-16 h-16 rounded-full flex items-center justify-center cursor-pointer transition-all duration-150"
+                  style={{ background: '#171717', border: `1px solid ${isActive ? '#A8CFEA' : '#262626'}` }}
+                  onMouseEnter={() => setActive(i)}
+                  onMouseLeave={() => setActive(null)}
+                  onClick={() => setActive(active === i ? null : i)}
+                  data-testid={`node-${i}`}
+                >
+                  <Icon size={24} color={isActive ? '#ffffff' : '#A8CFEA'} />
+                </div>
+                <span
+                  className="mt-3 text-[11px] uppercase tracking-widest text-center transition-colors duration-150 leading-tight"
+                  style={{ color: isActive ? '#A8CFEA' : '#6b7280' }}
+                >
+                  {label}
+                </span>
+                {isActive && (
+                  <div
+                    className="pf-tooltip absolute z-10 rounded-xl text-sm leading-relaxed"
+                    style={{
+                      top: 'calc(100% + 14px)',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      background: '#171717',
+                      border: '1px solid #262626',
+                      color: '#9ca3af',
+                      maxWidth: 260,
+                      padding: '14px 18px',
+                      whiteSpace: 'normal',
+                    }}
+                  >
+                    {content}
+                  </div>
+                )}
+              </div>
+              {/* Connector */}
+              {i < nodes.length - 1 && (
+                <div className="flex items-center shrink-0" style={{ marginTop: 32, width: 20 }}>
+                  <div
+                    className="relative w-full transition-colors duration-150"
+                    style={{ height: 1, background: connectorLit ? '#A8CFEA' : '#262626' }}
+                  >
+                    {connectorLit && (
+                      <div
+                        className="dot-slide absolute"
+                        style={{ width: 6, height: 6, borderRadius: '50%', background: '#A8CFEA', top: -2.5 }}
+                      />
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* ── Mobile: vertical stack ── */}
+      <div className="flex md:hidden flex-col items-center">
+        {nodes.map(({ Icon, label, content }, i) => {
+          const isActive = active === i;
+          return (
+            <div key={i} className="flex flex-col items-center w-full max-w-xs">
+              <div
+                className="flex items-center gap-4 w-full cursor-pointer"
+                onClick={() => setActive(active === i ? null : i)}
+                data-testid={`node-mobile-${i}`}
+              >
+                <div
+                  className="w-16 h-16 rounded-full flex items-center justify-center shrink-0 transition-all duration-150"
+                  style={{ background: '#171717', border: `1px solid ${isActive ? '#A8CFEA' : '#262626'}` }}
+                >
+                  <Icon size={24} color={isActive ? '#ffffff' : '#A8CFEA'} />
+                </div>
+                <span
+                  className="text-[11px] uppercase tracking-widest transition-colors duration-150"
+                  style={{ color: isActive ? '#A8CFEA' : '#6b7280' }}
+                >
+                  {label}
+                </span>
+              </div>
+              {isActive && (
+                <div
+                  className="pf-tooltip mt-3 rounded-xl text-sm leading-relaxed w-full"
+                  style={{ background: '#171717', border: '1px solid #262626', color: '#9ca3af', padding: '14px 18px' }}
+                >
+                  {content}
+                </div>
+              )}
+              {i < nodes.length - 1 && (
+                <div style={{ width: 1, height: 28, background: '#262626', marginTop: 8, marginBottom: 8 }} />
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
@@ -319,68 +396,7 @@ export default function FranchiseePage() {
             <p className="text-gray-400 text-lg max-w-2xl mx-auto" data-testid="text-how-subtitle">One team. One feedback loop. No excuses.</p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Card 1 */}
-            <Card className="bg-[#171717] border-[#262626]" data-testid="card-meta-ads">
-              <CardContent className="p-7">
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-10 h-10 rounded-full bg-[#A8CFEA]/10 flex items-center justify-center text-[#A8CFEA]">
-                    <Target size={20} />
-                  </div>
-                  <h3 className="font-bold text-xs uppercase tracking-widest text-[#A8CFEA]">WE RUN YOUR META ADS</h3>
-                </div>
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  We build and manage your entire Meta (Facebook &amp; Instagram) ad campaign. Every ad, every audience, every dollar of your $25,000 ad spend is managed by us — launched during your 16-week pre-opening period to flood your pipeline with leads before day one.
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Card 2 */}
-            <Card className="bg-[#171717] border-[#262626]" data-testid="card-work-leads">
-              <CardContent className="p-7">
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-10 h-10 rounded-full bg-[#A8CFEA]/10 flex items-center justify-center text-[#A8CFEA]">
-                    <Phone size={20} />
-                  </div>
-                  <h3 className="font-bold text-xs uppercase tracking-widest text-[#A8CFEA]">WE WORK EVERY LEAD</h3>
-                </div>
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  Every lead that comes in gets worked immediately. Our team follows up via text, email, and phone call — multiple touchpoints, persistent nurture, no lead left sitting. We don't generate leads and hand them off. We close them.
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Card 3 — with feedback loop diagram */}
-            <Card className="bg-[#171717] border-[#262626]" data-testid="card-one-team">
-              <CardContent className="p-7">
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-10 h-10 rounded-full bg-[#A8CFEA]/10 flex items-center justify-center text-[#A8CFEA]">
-                    <Zap size={20} />
-                  </div>
-                  <h3 className="font-bold text-xs uppercase tracking-widest text-[#A8CFEA]">ONE TEAM. ONE GOAL.</h3>
-                </div>
-                <p className="text-gray-400 text-sm leading-relaxed mb-4">
-                  Most fitness businesses suffer from the blame game — sales blames marketing for bad leads, marketing blames sales for not closing. At Revryze, our entire team is compensated on membership sales. Marketing and sales are one feedback loop. Bad leads get fixed immediately. Weak scripts get rewritten overnight. There is no finger-pointing — only results.
-                </p>
-                <FeedbackLoop />
-              </CardContent>
-            </Card>
-
-            {/* Card 4 */}
-            <Card className="bg-[#171717] border-[#A8CFEA]/20" data-testid="card-guarantee">
-              <CardContent className="p-7">
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-10 h-10 rounded-full bg-[#A8CFEA]/10 flex items-center justify-center text-[#A8CFEA]">
-                    <ShieldCheck size={20} />
-                  </div>
-                  <h3 className="font-bold text-xs uppercase tracking-widest text-[#A8CFEA]">250 MEMBERS OR WE REFUND YOU</h3>
-                </div>
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  When you provide 250 community-driven leads and complete your $25,000 Meta ad spend, you are covered. If we deliver fewer than 250 members, we refund you dollar-for-dollar for every member short. No fine print. No blame. Just accountability.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+          <ProcessFlow />
         </div>
       </section>
 
