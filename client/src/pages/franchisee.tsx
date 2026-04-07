@@ -638,25 +638,16 @@ export default function FranchiseePage() {
                 </CardContent>
               </Card>
 
-              {/* Card C: Break-even */}
-              <Card className="bg-[#171717] border-[#A8CFEA]/25 relative overflow-hidden" data-testid="card-breakeven">
-                <div className="absolute top-0 right-0 w-40 h-40 bg-[#A8CFEA] opacity-[0.04] blur-[50px] rounded-full pointer-events-none" />
+              {/* Card C: ROI Multiple */}
+              <Card className="bg-[#171717] border-[#262626]" data-testid="card-roi">
                 <CardContent className="p-6">
-                  <h3 className="text-gray-500 font-bold uppercase tracking-widest text-xs mb-4">BREAK-EVEN</h3>
-                  <div className="text-5xl font-black text-[#A8CFEA] mb-2" data-testid="text-breakeven">
-                    {breakEven.toFixed(1)} <span className="text-lg font-normal text-gray-500">months</span>
+                  <h3 className="text-gray-500 font-bold uppercase tracking-widest text-xs mb-4">ROI MULTIPLE</h3>
+                  <div className="text-5xl font-black text-[#A8CFEA]" data-testid="text-roi">
+                    {roi.toFixed(1)}x
                   </div>
-                  <p className="text-xs text-gray-600" data-testid="text-breakeven-sub">
-                    At {members} members paying {formatMoney(monthlyValue)}/month
-                  </p>
+                  <p className="text-sm text-gray-500 mt-2">Return on investment over member lifetime</p>
                 </CardContent>
               </Card>
-
-              {/* ROI stat */}
-              <div className="p-5 rounded-2xl border border-[#262626] bg-neutral-900/40 text-center" data-testid="card-roi">
-                <span className="text-4xl font-black text-[#00E87C]" data-testid="text-roi">{roi.toFixed(1)}x</span>
-                <p className="text-sm text-gray-500 mt-1">return on investment over member lifetime</p>
-              </div>
             </div>
           </div>
         </div>
