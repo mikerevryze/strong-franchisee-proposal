@@ -48,7 +48,7 @@ const CAROUSEL_STEPS = [
   {
     Icon: Zap,
     title: 'One Team. One Goal.',
-    body: "Our entire team is compensated on membership sales — not leads, not calls. Marketing and sales are one feedback loop. Bad leads get fixed overnight. Weak scripts get rewritten the same day. No finger-pointing. Only results.",
+    body: "Every person on our team is aligned around one objective — memberships sold. That means our ads are built to convert, our follow-up is built to close, and every part of the process is constantly sharpened. One goal, one team, one outcome: your studio full.",
   },
   {
     Icon: Shield,
