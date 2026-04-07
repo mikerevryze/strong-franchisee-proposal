@@ -243,14 +243,6 @@ export default function FranchiseePage() {
   return (
     <div className="min-h-screen pb-24 bg-[#0a0a0a] text-white font-sans selection:bg-[#A8CFEA] selection:text-black">
 
-      {/* TOP NAV LINK */}
-      <div className="px-6 pt-5 max-w-7xl mx-auto">
-        <Link href="/" className="text-gray-600 hover:text-gray-400 text-sm transition-colors flex items-center gap-1 w-fit" data-testid="link-franchisor-proposal">
-          <ChevronLeft size={14} />
-          Franchisor Proposal
-        </Link>
-      </div>
-
       {/* ── SECTION 1: HERO ── */}
       <section className="relative pt-16 pb-20 px-6 max-w-7xl mx-auto" data-testid="section-hero">
         <div className="text-center mb-16">
