@@ -375,61 +375,72 @@ export default function FranchiseePage() {
 
       {/* ── SECTION 3: PRICING ── */}
       <section className="py-20 px-6 border-t border-[#262626]" data-testid="section-pricing">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4" data-testid="text-pricing-title">250 Members. Guaranteed.</h2>
             <p className="text-gray-400 text-lg" data-testid="text-pricing-subtitle">One fee. One team. One number to hit.</p>
           </div>
 
-          {/* Pricing card */}
-          <Card className="bg-[#171717] border-[#A8CFEA]/30 mb-6" data-testid="card-pricing">
-            <CardContent className="p-8 text-center">
-              <span className="bg-[#A8CFEA]/10 text-[#A8CFEA] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest" data-testid="badge-standard">STANDARD</span>
-              <div className="text-6xl font-black mt-6 mb-2" data-testid="text-price">$40,000</div>
-              <p className="text-gray-500 text-sm font-semibold mb-8" data-testid="text-price-desc">Per Studio (You Pay Once)</p>
-              <div className="space-y-3 text-sm text-gray-300 text-left max-w-sm mx-auto">
-                {[
-                  '250-member guarantee',
-                  'Full Meta ad management included',
-                  'Lead nurture via text, email, and phone',
-                  'Prorated refund protection',
-                  'Dedicated US-based sales team',
-                  '16-week pre-launch campaign',
-                ].map((f, i) => (
-                  <div key={i} className="flex items-center gap-2" data-testid={`text-feature-${i}`}>
-                    <CheckCircle2 size={16} className="text-[#00E87C] shrink-0" />
-                    {f}
+          {/* Two-column layout */}
+          <div className="flex flex-col md:flex-row gap-6 items-stretch">
+
+            {/* LEFT: info boxes (mobile: second) */}
+            <div className="flex flex-col gap-4 md:w-[45%] order-2 md:order-1">
+
+              {/* Refund explainer */}
+              <div className="p-4 rounded-2xl bg-[#171717] border border-[#A8CFEA]/25 flex-1" data-testid="card-refund-explainer">
+                <h4 className="text-[#A8CFEA] font-bold uppercase tracking-widest text-xs mb-2">HOW THE REFUND WORKS</h4>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  At $40,000 for 250 members, each member = $160. If Revryze delivers 200 of 250 members → refund = 50 × $160 = $8,000. You only pay for what you get.
+                </p>
+              </div>
+
+              {/* Qualification box */}
+              <div className="p-4 rounded-2xl bg-neutral-900/40 border border-[#262626] flex-1" data-testid="card-qualification">
+                <h4 className="text-gray-300 font-bold uppercase tracking-widest text-xs mb-2">REFUND QUALIFICATION REQUIREMENTS</h4>
+                <div className="space-y-2 text-sm text-gray-400">
+                  <div className="flex gap-2">
+                    <CheckCircle2 size={15} className="text-[#00E87C] shrink-0 mt-0.5" />
+                    Provide 250 community-driven leads to the Revryze sales team
                   </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Refund explainer */}
-          <div className="p-6 rounded-2xl bg-[#171717] border border-[#A8CFEA]/25 mb-4" data-testid="card-refund-explainer">
-            <h4 className="text-[#A8CFEA] font-bold uppercase tracking-widest text-xs mb-3">HOW THE REFUND WORKS</h4>
-            <p className="text-gray-400 text-sm leading-relaxed">
-              At $40,000 for 250 members, each member = $160. If Revryze delivers 200 of 250 members → refund = 50 × $160 = $8,000. You only pay for what you get.
-            </p>
-          </div>
-
-          {/* Qualification box */}
-          <div className="p-6 rounded-2xl bg-neutral-900/40 border border-[#262626] mb-4" data-testid="card-qualification">
-            <h4 className="text-gray-300 font-bold uppercase tracking-widest text-xs mb-3">REFUND QUALIFICATION REQUIREMENTS</h4>
-            <div className="space-y-2 text-sm text-gray-400">
-              <div className="flex gap-2">
-                <CheckCircle2 size={15} className="text-[#00E87C] shrink-0 mt-0.5" />
-                Provide 250 community-driven leads to the Revryze sales team
-              </div>
-              <div className="flex gap-2">
-                <CheckCircle2 size={15} className="text-[#00E87C] shrink-0 mt-0.5" />
-                Complete $25,000 in Meta ad spend over the 16-week pre-launch period (paid directly to Meta, managed by Revryze)
+                  <div className="flex gap-2">
+                    <CheckCircle2 size={15} className="text-[#00E87C] shrink-0 mt-0.5" />
+                    Complete $25,000 in Meta ad spend over the 16-week pre-launch period (paid directly to Meta, managed by Revryze)
+                  </div>
+                </div>
+                <p className="text-xs text-gray-600 mt-3">Both conditions must be met. When they are, any shortfall is fully refunded.</p>
               </div>
             </div>
-            <p className="text-xs text-gray-600 mt-3">Both conditions must be met. When they are, any shortfall is fully refunded.</p>
+
+            {/* RIGHT: pricing card (mobile: first) */}
+            <div className="md:w-[55%] order-1 md:order-2">
+              <Card className="bg-[#171717] border-[#A8CFEA]/30 h-full" data-testid="card-pricing">
+                <CardContent className="p-8 text-center h-full flex flex-col justify-center">
+                  <span className="bg-[#A8CFEA]/10 text-[#A8CFEA] text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest" data-testid="badge-standard">STANDARD</span>
+                  <div className="text-6xl font-black mt-6 mb-2" data-testid="text-price">$40,000</div>
+                  <p className="text-gray-500 text-sm font-semibold mb-8" data-testid="text-price-desc">Per Studio (You Pay Once)</p>
+                  <div className="space-y-3 text-sm text-gray-300 text-left max-w-sm mx-auto">
+                    {[
+                      '250-member guarantee',
+                      'Full Meta ad management included',
+                      'Lead nurture via text, email, and phone',
+                      'Prorated refund protection',
+                      'Dedicated US-based sales team',
+                      '16-week pre-launch campaign',
+                    ].map((f, i) => (
+                      <div key={i} className="flex items-center gap-2" data-testid={`text-feature-${i}`}>
+                        <CheckCircle2 size={16} className="text-[#00E87C] shrink-0" />
+                        {f}
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
 
-          <p className="text-xs text-gray-600 text-center" data-testid="text-meta-note">
+          {/* Note below full layout */}
+          <p className="text-xs text-gray-600 text-center mt-6" data-testid="text-meta-note">
             The $25,000 Meta ad spend is paid directly to the ad platform — separate from the Revryze service fee and required to activate the guarantee.
           </p>
         </div>
