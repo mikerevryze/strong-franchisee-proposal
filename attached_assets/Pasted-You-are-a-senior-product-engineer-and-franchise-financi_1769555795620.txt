@@ -1,0 +1,114 @@
+You are a senior product engineer and franchise financial modeler.
+
+Context:
+This proposal is for Alloy Personal Training CORPORATE (franchisor).
+Franchisees pay:
+- The per-studio Revryze fee
+- The marketing spend
+
+Therefore:
+- Revryze fees are NOT a cost to corporate
+- Marketing spend is NOT a cost to corporate
+- ALL royalty revenue shown is pure upside to the franchisor
+
+The calculator UI, sliders, and interaction model MUST remain intact.
+We are correcting logic, labels, and outputs — not redesigning.
+
+========================
+CRITICAL FRAMING FIX
+========================
+
+Remove or replace any metric that implies:
+- “Net investment” by corporate
+- “Net royalty gain” that subtracts Revryze fees
+- Any negative ROI framing for Alloy
+
+Corporate incurs $0 cost.
+This section must show:
+1) Per-studio upside
+2) Portfolio-scale upside
+
+========================
+PER-STUDIO ROI (NEW)
+========================
+
+Add a clear per-studio block:
+
+Inputs (from existing sliders):
+- Members per studio
+- Monthly member value
+- Member lifetime (months)
+
+Calculations:
+- LTV per member = monthly_value * lifetime_months
+- Revenue per studio = members * LTV
+- Royalty per studio = revenue_per_studio * 0.07
+
+Display as:
+“Incremental Royalty per Studio”
+
+This is the franchisor’s ROI PER LOCATION.
+
+========================
+SCALE-LEVEL ROI (CORPORATE)
+========================
+
+Use existing “Number of Studio Openings” slider.
+
+Calculations:
+- Total system revenue = revenue_per_studio * number_of_studios
+- Total corporate royalty = total_system_revenue * 0.07
+
+Display prominently as:
+“Total Incremental Corporate Royalty Revenue”
+
+This is the headline number corporate should anchor on.
+
+========================
+REFUND LOGIC (VISIBILITY ONLY)
+========================
+
+Refunds affect:
+- Revryze revenue
+- Franchisee economics
+
+Refunds do NOT reduce:
+- System revenue
+- Corporate royalty revenue
+
+Therefore:
+- Refund math may be shown as a risk-sharing mechanism
+- But must NOT flow into corporate ROI calculations
+
+If shown, label clearly as:
+“Revryze Performance Risk (Not Corporate Cost)”
+
+========================
+WHAT TO REMOVE OR RENAME
+========================
+
+REMOVE or RENAME:
+- “Net Investment” → remove entirely
+- “Net Royalty Gain” → replace with “Corporate Royalty Revenue”
+- Any subtraction of Revryze fees from corporate numbers
+
+========================
+FINAL OUTPUT TEST
+========================
+
+When Alloy corporate looks at this section, they should instantly understand:
+
+Per Studio:
+“If one studio hits X members, Alloy earns $____ in annual royalty.”
+
+At Scale:
+“If we open 40 studios, this generates $____ in incremental royalty revenue.”
+
+No confusion.
+No implied cost.
+No negative numbers.
+
+This section exists to answer one question only:
+“How much money does Alloy make if Revryze executes?”
+
+Make the math and labels reflect that truth.

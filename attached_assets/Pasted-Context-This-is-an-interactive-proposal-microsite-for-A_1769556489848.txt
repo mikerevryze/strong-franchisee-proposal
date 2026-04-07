@@ -1,0 +1,121 @@
+Context:
+This is an interactive proposal microsite for Alloy Personal Training (corporate audience).
+
+The calculator, sliders, layout, and interaction model already exist and MUST remain.
+We are fixing calculator logic, metric framing, and copy clarity.
+
+========================
+CORE CONCEPT (DO NOT BREAK)
+========================
+
+Each studio is its own investment.
+
+- Franchisee pays:
+  - Revryze fee (per studio)
+  - Ad spend (per studio)
+
+- Franchisor (Alloy corporate):
+  - Pays nothing
+  - Earns 7% royalty on all revenue generated
+
+The calculator must clearly show:
+1) Per-studio ROI (using fee + ad spend as investment)
+2) Franchisor royalty upside (pure upside, separate)
+
+DO NOT show:
+- Aggregate franchisee spend across all studios
+- “How much Revryze makes”
+- Corporate “net investment” or negative numbers
+
+========================
+STUDIO-LEVEL ROI (PRIMARY)
+========================
+
+Inputs (keep existing sliders):
+- Revryze fee per studio:
+  - $40,000 standard
+  - $30,000 if 10+ studio commitment
+- Monthly ad spend (studio-paid)
+- Members acquired per studio
+- Monthly member value ($350 default)
+- Member lifetime in months (12 default)
+
+Calculations:
+- LTV per member = monthly_value × lifetime_months
+- Revenue per studio = members × LTV
+- Total studio investment = Revryze fee + ad spend
+- ROI multiple = revenue_per_studio ÷ total_studio_investment
+
+Display clearly:
+- Revenue generated (per studio)
+- Total investment (per studio)
+- ROI multiple (per studio)
+
+This is the main proof.
+
+========================
+GUARANTEE & REFUND LOGIC
+========================
+
+Guarantee:
+- 100 members per studio
+
+Refund logic (prorated):
+refund_percentage = (100 − members_acquired) ÷ 100
+refund_amount = refund_percentage × Revryze fee
+
+Rules:
+- Refund only adjusts Revryze fee
+- Refund does NOT change:
+  - Revenue
+  - ROI numerator
+  - Franchisor royalty
+
+ROI should update dynamically after refund.
+
+========================
+FRANCHISOR UPSIDE (SECONDARY)
+========================
+
+Use studio revenue output.
+
+Per Studio:
+- Royalty per studio = revenue_per_studio × 0.07
+
+At Scale:
+- Use existing “Number of Studio Openings” slider (default = 40)
+- Total corporate royalty = royalty_per_studio × number_of_studios
+
+Label as:
+- “Royalty per Studio”
+- “Total Incremental Corporate Royalty”
+
+No costs. No deductions. Upside only.
+
+========================
+COPY FIXES (REQUIRED)
+========================
+
+Remove:
+- “Since 1992”
+- Any historical or legacy claims
+- Soft, generic marketing language
+
+Replace with:
+- Short, punchy, outcome-driven copy
+- Numbers first, explanation second
+
+Examples:
+- “100 Members. Or You Get Refunded.”
+- “Revenue First. Fees Second.”
+- “Per-Studio ROI. Proven at Scale.”
+
+========================
+FINAL CHECK
+========================
+
+After changes:
+- Studio owners see a clean ROI case
+- Corporate sees scalable upside
+- No confusion about who pays what
+- Calculator feels the same — just correct

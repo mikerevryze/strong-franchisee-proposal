@@ -1,0 +1,295 @@
+I need to overwrite `src/App.tsx` with the FINAL, COMPLETE version of the app.
+
+Please replace the entire contents of `src/App.tsx` with the code below. 
+
+This code combines everything we have built:
+1. Keeps the **Hero Section** exactly as is.
+2. Restores the **"Operational Comparison"** (The two cards comparing Franchisee vs. Revryze) right after the Hero.
+3. Includes the **"Capital Efficiency Simulator"** (The ROI/Slider calculator).
+4. Keeps the **"Proof Vault"** with the correct file links.
+5. Keeps the **Pricing Section** exactly as is.
+
+--- CODE FOR src/App.tsx ---
+import React, { useState } from 'react';
+import { 
+  ShieldCheck, Zap, Rocket, AlertTriangle, Clock, Target, 
+  PhoneCall, FileText, Users, CheckCircle2, TrendingUp, BarChart3
+} from 'lucide-react';
+
+const Card = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
+  <div className={`bg-neutral-900 border border-neutral-800 rounded-2xl p-6 transition-all ${className}`}>
+    {children}
+  </div>
+);
+
+const SectionTitle = ({ children, subtitle }: { children: React.ReactNode, subtitle?: string }) => (
+  <div className="mb-12 text-center">
+    <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">{children}</h2>
+    {subtitle && <p className="text-gray-400 text-lg max-w-2xl mx-auto">{subtitle}</p>}
+  </div>
+);
+
+const formatMoney = (amount: number) => {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: 0,
+  }).format(amount);
+};
+
+export default function App() {
+  // CALCULATOR SLIDERS
+  const [members, setMembers] = useState(250); 
+  const [months, setMonths] = useState(12);    
+  const [amv, setAmv] = useState(75);          
+
+  // CALCULATOR CONSTANTS
+  const FEE_REVRYZE = 25000;
+  const FEE_ADS = 17500;
+  const REFUND = 15000;
+  const GOAL = 250;
+
+  // CALCULATOR LOGIC
+  const initialOutlay = FEE_REVRYZE + FEE_ADS; // $42,500
+  const isRefundActive = members < GOAL;
+  const netInvestment = isRefundActive ? (initialOutlay - REFUND) : initialOutlay;
+  const lifetimeValuePerMember = months * amv;
+  const totalLifetimeRevenue = members * lifetimeValuePerMember;
+  const netProfit = totalLifetimeRevenue - netInvestment;
+  const roiPercent = netInvestment > 0 ? (netProfit / netInvestment) * 100 : 0;
+
+  return (
+    <div className="min-h-screen pb-24 bg-[#0a0a0a] text-white font-sans selection:bg-[#00AEEF] selection:text-black">
+      
+      {/* HERO SECTION */}
+      <section className="relative pt-24 pb-20 px-6 max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-neutral-800 bg-neutral-900/80 text-sm font-semibold mb-8">
+            <ShieldCheck size={16} className="text-[#00AEEF]" />
+            <span className="text-gray-300 tracking-wide">SCENTHOUND x REVRYZE PILOT</span>
+          </div>
+          <h1 className="text-5xl md:text-8xl font-black mb-6 tracking-tighter leading-[0.9]">
+            STOP SELLING.<br />
+            <span className="text-[#00AEEF]">START BUILDING.</span>
+          </h1>
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto font-light leading-relaxed">
+            We install a US-based sales engine to remove execution risk and target <strong>250+ Members</strong> on Day 1.
+          </p>
+        </div>
+
+        {/* OPERATIONAL COMPARISON (The Two Boxes) */}
+        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+          
+          {/* Box 1: Franchisee Reality */}
+          <Card className="relative group hover:border-red-500/30">
+            <div className="absolute top-4 right-4 opacity-20"><AlertTriangle className="text-red-500" size={40} /></div>
+            <h3 className="text-red-500 font-bold uppercase tracking-widest text-xs mb-4">The Operational Bottleneck</h3>
+            <p className="text-2xl font-bold mb-6">"Divided Attention"</p>
+            <ul className="space-y-4 text-sm text-gray-400">
+              <li className="flex gap-3"><Clock size={16} className="text-red-500 shrink-0" /> Owner distracted by construction & permitting.</li>
+              <li className="flex gap-3"><AlertTriangle size={16} className="text-red-500 shrink-0" /> Speed-to-lead suffers due to on-site demands.</li>
+              <li className="flex gap-3"><Target size={16} className="text-red-500 shrink-0" /> Result: Leads age out, cash flow delays.</li>
+            </ul>
+          </Card>
+
+          {/* Box 2: Revryze Solution */}
+          <Card className="relative group border-[#00AEEF]/30 bg-neutral-900/50">
+            <div className="absolute top-4 right-4 opacity-20"><Zap className="text-[#00AEEF]" size={40} /></div>
+            <h3 className="text-[#00AEEF] font-bold uppercase tracking-widest text-xs mb-4">The Revryze Solution</h3>
+            <p className="text-2xl font-bold mb-6">"Dedicated Execution"</p>
+            <ul className="space-y-4 text-sm text-gray-400">
+              <li className="flex gap-3"><Zap size={16} className="text-[#00AEEF] shrink-0" /> 100% Dedicated US-Based Sales Team.</li>
+              <li className="flex gap-3"><CheckCircle2 size={16} className="text-[#00AEEF] shrink-0" /> Systemized Speed-to-Lead (Phone/SMS/Email).</li>
+              <li className="flex gap-3"><Rocket size={16} className="text-[#00AEEF] shrink-0" /> <strong>250+ Billed Members</strong> Objective.</li>
+            </ul>
+          </Card>
+        </div>
+      </section>
+
+      {/* CALCULATOR SECTION */}
+      <section className="py-12 px-6 bg-neutral-950">
+        <div className="max-w-6xl mx-auto">
+          <SectionTitle subtitle="Adjust the inputs to calculate Lifetime ROI based on the Pilot Terms ($42.5k Initial Investment w/ $15k Refund Guarantee).">
+            Capital Efficiency Simulator
+          </SectionTitle>
+
+          <div className="grid lg:grid-cols-12 gap-8">
+            
+            {/* INPUTS (Left Side) */}
+            <div className="lg:col-span-5 space-y-6">
+              
+              {/* Slider 1: Members */}
+              <Card className="border-l-4 border-l-[#00AEEF]">
+                <div className="flex justify-between items-center mb-4">
+                  <label className="text-sm font-bold uppercase tracking-widest text-gray-400">Members Sold</label>
+                  <span className="text-3xl font-black text-white">{members}</span>
+                </div>
+                <input 
+                  type="range" min="0" max="400" step="5" 
+                  value={members} onChange={(e) => setMembers(parseInt(e.target.value))} 
+                  className="w-full h-2 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-[#00AEEF]" 
+                />
+                <div className="flex justify-between text-xs text-gray-500 mt-2 font-mono">
+                  <button onClick={() => setMembers(45)} className="hover:text-red-500 transition-colors">Avg Franchisee (45)</button>
+                  <button onClick={() => setMembers(250)} className="hover:text-[#00AEEF] transition-colors">Revryze Target (250)</button>
+                </div>
+              </Card>
+
+              {/* Slider 2: Retention */}
+              <Card>
+                <div className="flex justify-between items-center mb-4">
+                  <label className="text-sm font-bold uppercase tracking-widest text-gray-400">Retention (Months)</label>
+                  <span className="text-3xl font-black text-white">{months} <span className="text-sm font-normal text-gray-600">mo</span></span>
+                </div>
+                <input 
+                  type="range" min="6" max="18" step="1" 
+                  value={months} onChange={(e) => setMonths(parseInt(e.target.value))} 
+                  className="w-full h-2 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-[#00AEEF]" 
+                />
+              </Card>
+
+              {/* Slider 3: AMV */}
+              <Card>
+                <div className="flex justify-between items-center mb-4">
+                  <label className="text-sm font-bold uppercase tracking-widest text-gray-400">Avg Monthly Value</label>
+                  <span className="text-3xl font-black text-white">${amv}</span>
+                </div>
+                <input 
+                  type="range" min="50" max="100" step="1" 
+                  value={amv} onChange={(e) => setAmv(parseInt(e.target.value))} 
+                  className="w-full h-2 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-[#00AEEF]" 
+                />
+              </Card>
+
+              {/* Investment Logic Display */}
+              <div className="p-5 bg-neutral-900/50 rounded-xl border border-neutral-800/50">
+                <p className="text-xs font-bold uppercase text-gray-500 mb-3">Investment Logic</p>
+                <div className="flex justify-between text-sm text-gray-400 mb-1">
+                  <span>Initial Investment ($25k Fee + $17.5k Ads)</span>
+                  <span>$42,500</span>
+                </div>
+                <div className={`flex justify-between text-sm font-bold pt-2 border-t border-neutral-800 ${isRefundActive ? 'text-green-400' : 'text-gray-600'}`}>
+                  <span>Refund (< 250 Members)</span>
+                  <span>{isRefundActive ? '-$15,000' : '$0'}</span>
+                </div>
+                <div className="flex justify-between text-lg font-bold text-white mt-2 pt-2 border-t border-neutral-800">
+                  <span>Net Cost Basis</span>
+                  <span>{formatMoney(netInvestment)}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* OUTPUTS (Right Side) */}
+            <div className="lg:col-span-7 flex flex-col gap-6">
+              
+              {/* Main ROI Display */}
+              <Card className="flex-1 border-[#00AEEF]/20 bg-neutral-900/80 relative overflow-hidden flex flex-col justify-center items-center text-center py-12">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-[#00AEEF] opacity-[0.05] blur-[80px] rounded-full pointer-events-none"></div>
+                
+                <h3 className="text-gray-500 font-bold uppercase tracking-widest mb-2">Total Lifetime Revenue</h3>
+                <div className="text-5xl md:text-7xl font-black text-white mb-8 tracking-tighter">
+                  {formatMoney(totalLifetimeRevenue)}
+                </div>
+
+                <div className="grid grid-cols-2 gap-8 w-full max-w-lg border-t border-neutral-800 pt-8">
+                  <div>
+                    <div className="text-gray-500 text-xs font-bold uppercase mb-1">Net Profit</div>
+                    <div className={`text-3xl font-bold ${netProfit > 0 ? 'text-[#00AEEF]' : 'text-red-500'}`}>
+                      {formatMoney(netProfit)}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-gray-500 text-xs font-bold uppercase mb-1">Lifetime ROI</div>
+                    <div className={`text-3xl font-bold ${roiPercent > 0 ? 'text-[#00AEEF]' : 'text-red-500'}`}>
+                      {roiPercent.toFixed(0)}%
+                    </div>
+                  </div>
+                </div>
+              </Card>
+
+              {/* Dynamic Feedback */}
+              <div className={`p-6 rounded-2xl border flex items-center gap-4 transition-all ${isRefundActive ? 'bg-red-500/10 border-red-500/30' : 'bg-[#00AEEF]/10 border-[#00AEEF]/30'}`}>
+                <div className={`p-3 rounded-full ${isRefundActive ? 'bg-red-500/20 text-red-500' : 'bg-[#00AEEF]/20 text-[#00AEEF]'}`}>
+                  {isRefundActive ? <ShieldCheck size={28} /> : <TrendingUp size={28} />}
+                </div>
+                <div>
+                  <h4 className={`font-bold text-xl ${isRefundActive ? 'text-red-500' : 'text-[#00AEEF]'}`}>
+                    {isRefundActive ? 'Downside Protection Active' : 'Growth Velocity Active'}
+                  </h4>
+                  <p className="text-sm text-gray-400 mt-1 leading-relaxed">
+                    {isRefundActive 
+                      ? 'Performance Guarantee triggered. $15,000 refund applied to protect franchisee capital.' 
+                      : 'Guarantee met. Franchisee is generating pure profit on top of full investment.'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PROOF VAULT */}
+      <section className="py-24 px-4 bg-neutral-900/30 border-t border-neutral-900">
+        <div className="max-w-6xl mx-auto">
+          <SectionTitle subtitle="Real conversations, real phone sales results, total domination.">
+            The "Proof" Vault
+          </SectionTitle>
+          <div className="grid md:grid-cols-3 gap-6">
+            
+            {/* CARD 1: Swet Studio Call */}
+            <a href="/swet-call-to-share.wav" target="_blank" className="group">
+              <Card className="h-full flex flex-col items-center text-center group-hover:bg-neutral-800 transition-all hover:-translate-y-1 hover:border-[#00AEEF]/50">
+                <div className="w-16 h-16 bg-neutral-800 rounded-full flex items-center justify-center mb-6 text-[#00AEEF] group-hover:scale-110 transition-transform">
+                  <PhoneCall size={32} />
+                </div>
+                <h4 className="text-xl font-bold mb-2">Live Sales Call: Swet</h4>
+                <p className="text-gray-400 text-sm">Listen to Craig close a lead. Real-time execution.</p>
+              </Card>
+            </a>
+
+            {/* CARD 2: Beem Case Study */}
+            <a href="/Case-Study-Building-Predictable-Franchise-Growth-copy.pdf" target="_blank" className="group">
+              <Card className="h-full flex flex-col items-center text-center group-hover:bg-neutral-800 transition-all hover:-translate-y-1 hover:border-[#00AEEF]/50">
+                <div className="w-16 h-16 bg-neutral-800 rounded-full flex items-center justify-center mb-6 text-[#00AEEF] group-hover:scale-110 transition-transform">
+                  <FileText size={32} />
+                </div>
+                <h4 className="text-xl font-bold mb-2">beem Light Sauna™</h4>
+                <p className="text-gray-400 text-sm">Case Study: Predictable franchise growth mechanics.</p>
+              </Card>
+            </a>
+
+            {/* CARD 3: Drybar Case Study */}
+            <a href="/12percent-Presale-Conversion-Rate-with-Zero-Extra-Staff.pdf" target="_blank" className="group">
+              <Card className="h-full flex flex-col items-center text-center group-hover:bg-neutral-800 transition-all hover:-translate-y-1 hover:border-[#00AEEF]/50">
+                <div className="w-16 h-16 bg-neutral-800 rounded-full flex items-center justify-center mb-6 text-[#00AEEF] group-hover:scale-110 transition-transform">
+                  <BarChart3 size={32} />
+                </div>
+                <h4 className="text-xl font-bold mb-2">Drybar Case Study</h4>
+                <p className="text-gray-400 text-sm">Results: 12% Pre-sale conversion in 7 days.</p>
+              </Card>
+            </a>
+            
+          </div>
+        </div>
+      </section>
+
+      {/* PRICING */}
+      <section className="py-20 px-6 bg-[#00AEEF] text-black">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-6xl font-black mb-6 text-white">Pilot vs. Standard Rollout</h2>
+            <p className="text-xl font-medium max-w-2xl mx-auto opacity-90">
+              The Pilot Program is "Risk-Discounted." You save the capital upfront, rather than paying for a refund guarantee on the backend.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 items-stretch">
+             {/* Option A */}
+             <div className="bg-white p-8 rounded-3xl shadow-xl flex flex-col">
+                <div className="mb-6">
+                  <span className="bg-neutral-900 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Option A: The Specialist</span>
+                  <h3 className="text-4xl font-black mt-4 mb-1">2 Studios</h3>
+                  <p className="text-gray-500 text-sm font-bold">Pilot Investment</p>
+                </div>
+                <div className="mt-auto space-y-4">
+                  <div className="flex justify-between items-center border-b border-gray-1

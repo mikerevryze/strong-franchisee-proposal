@@ -1,0 +1,125 @@
+You are a senior product engineer and financial modeler.
+
+Context:
+This is a proposal microsite for Alloy Personal Training x Revryze.
+Audience = Alloy CORPORATE (franchisor leadership).
+
+The calculator concept (interactive sliders, real-time math, dynamic outputs) MUST remain intact.
+We are not redesigning the calculator — we are updating the inputs, logic, and outputs.
+
+Primary Intent:
+The corporate royalty section exists to clearly show **how much money Alloy corporate makes by partnering with Revryze**.
+This is upside visualization, not a cost explanation.
+
+========================
+PRICING MODEL (CORPORATE)
+========================
+
+1. Per-Studio Pricing
+- Standard: $40,000 per studio
+- Volume commitment incentive:
+  - If Alloy guarantees 10+ studios → $30,000 per studio
+- Pricing should dynamically scale based on the “Number of Studio Openings” slider
+
+Display clearly:
+- Total Revryze fees paid
+- Effective per-studio price based on commitment
+
+========================
+GUARANTEE & REFUND LOGIC
+========================
+
+2. Member Guarantee
+- Revryze guarantees **100 members per studio**
+- Refund is PRORATED based on performance
+
+Refund Formula:
+refund_percentage = (100 - members_acquired) / 100
+refund_amount = refund_percentage * fee_paid
+
+Example logic must reconcile:
+- Fee paid: $40,000
+- Members acquired: 80
+- Performance: 80%
+- Refund: 20% → $8,000
+
+Language guidance:
+- This is a downside-protection mechanism
+- Avoid “all-or-nothing” or punitive framing
+- Emphasize alignment and shared outcome
+
+========================
+CORE SLIDERS (DO NOT REMOVE)
+========================
+
+These sliders must remain and continue to drive all calculations:
+
+3. Member Economics
+- Monthly value per member: $350 (slider, default = 350)
+- Average lifetime: 12 months (slider, default = 12)
+
+LTV Formula:
+LTV_per_member = monthly_value * lifetime_months
+
+4. Members Acquired
+- Members per studio slider (used to simulate performance vs guarantee)
+- Default should be 100
+
+5. Studio Openings
+- Slider: “Number of Studio Openings This Year”
+- Default value: 40
+- All totals scale off this number
+
+========================
+CORPORATE ROYALTY UPSIDE (KEY)
+========================
+
+This section exists to show Alloy **why this makes them money**.
+
+6. Revenue Calculations
+- Revenue per studio = members_acquired * LTV_per_member
+- Total system revenue = revenue_per_studio * number_of_studios
+
+7. Corporate Royalty
+- Alloy earns **7% royalty on studio revenue**
+
+Formula:
+corporate_royalty = total_system_revenue * 0.07
+
+Display this prominently as:
+“Incremental Corporate Royalty Revenue Generated”
+
+This should feel like:
+- Incremental upside created by Revryze execution
+- Scalable, portfolio-level impact
+- A reason for corporate to deploy this aggressively
+
+========================
+OUTPUT REQUIREMENTS
+========================
+
+The calculator should clearly surface:
+- Total Revryze fees paid
+- Worst-case refund exposure
+- Net cost after refunds (if any)
+- Total system revenue generated
+- **Alloy corporate royalty revenue (7%)**
+- Clear ROI framing for corporate
+
+DO NOT:
+- Remove sliders
+- Convert to static examples only
+- Shift focus to franchisee P&Ls
+- Obscure corporate upside
+
+========================
+END STATE TEST
+========================
+
+When Alloy leadership uses this calculator, they should immediately see:
+- “If we open X studios…”
+- “At Y member value…”
+- “We generate $Z in system revenue…”
+- “Which creates $___ in royalty income for Alloy corporate.”
+
+This is a corporate growth lever visualization, not a pricing explainer.

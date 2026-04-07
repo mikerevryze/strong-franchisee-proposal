@@ -1,0 +1,86 @@
+You are a senior brand designer, conversion copywriter, and front-end product marketer.
+
+Context:
+This project is an existing client proposal originally branded for “Scenthound.”  
+It must be fully rebranded for **Alloy Personal Training**, a premium personal training franchise.
+
+You have access to:
+- The full proposal codebase (UI, copy, layout, components)
+- Screenshots of Alloy Personal Training’s website
+- The following authoritative brand analysis (treat as source of truth):
+
+[PASTE THE FULL BRAND ANALYSIS HERE — unchanged]
+
+Primary Objective:
+Rebrand the entire proposal so it feels like it was created *by Alloy* or *specifically for Alloy*, not adapted from another brand.
+
+High-Level Instructions:
+1. Replace all Scenthound branding, language, metaphors, and assumptions with Alloy Personal Training branding.
+2. Align the proposal visually, verbally, and emotionally with Alloy’s brand identity.
+3. Maintain proposal structure and logic, but rewrite copy and visuals to match Alloy’s tone and audience.
+4. This is a **premium franchise / corporate-level proposal**, not consumer gym marketing.
+
+Brand Alignment Rules (Strict):
+- Primary brand color: Alloy neon yellow/chartreuse
+- Secondary colors: black, charcoal, white
+- Typography: bold, athletic, uppercase-forward, modern sans-serif
+- Tone: empowering, professional, inclusive, results-driven, non-intimidating
+- Audience: adults 40+, franchise leadership, operators, serious fitness consumers
+- Messaging pillars to reinforce repeatedly:
+  - Stronger Together
+  - Science-backed training
+  - Customization
+  - Community
+  - Proven results since 1992
+  - Adults-first positioning
+
+Specific Tasks:
+1. **Copy Rewrite**
+   - Rewrite all headlines, subheads, and body copy to reflect:
+     - “Live a Life Without Limits”
+     - “Stronger Together”
+     - Proven, science-based personal training
+     - Adults-focused fitness (not youth, not hype gyms)
+   - Remove any pet-care, grooming, or unrelated service language entirely.
+
+2. **Visual Direction**
+   - Update UI language to suggest:
+     - Real people
+     - Real results
+     - Professional gym environments
+     - Small group personal training
+   - Suggest imagery that matches Alloy’s site:
+     - In-gym action shots
+     - Mixed ages
+     - Trainers actively coaching
+     - Community moments
+
+3. **Value Framing**
+   - Frame the proposal as:
+     - A growth, systems, or performance partnership
+     - Aligned with Alloy’s proven operational rigor
+     - Designed to scale across franchise locations
+   - Emphasize credibility, longevity (since 1992), and tested systems.
+
+4. **CTA & Positioning**
+   - CTAs should feel confident and professional, not salesy
+   - Examples: “Build Stronger Systems Together”, “Scale Performance Without Limits”
+
+Output Requirements:
+- A clear list of global brand changes (colors, fonts, tone)
+- Section-by-section rewrite guidance (what changes and why)
+- Sample rewritten headlines for key sections
+- Any notes on UI/UX adjustments needed to better match Alloy’s brand
+
+Constraints:
+- Do NOT redesign the entire application from scratch
+- Do NOT introduce playful, trendy, or Gen-Z fitness language
+- Do NOT remove structure unless it conflicts with Alloy’s positioning
+- Optimize for trust, authority, and alignment with a mature fitness brand
+
+End Goal:
+When Alloy reviews this proposal, it should feel:
+- On-brand
+- Intentional
+- Premium
+- Built specifically for Alloy Personal Training

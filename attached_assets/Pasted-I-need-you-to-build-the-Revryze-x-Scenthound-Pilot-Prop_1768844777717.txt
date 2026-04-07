@@ -1,0 +1,324 @@
+I need you to build the **Revryze x Scenthound Pilot Proposal** app.
+
+1. **INSTALL DEPENDENCIES**
+Run this command immediately:
+npm install recharts lucide-react
+
+2. **CREATE FILES**
+Please create or overwrite the following 3 files with the code below.
+
+--- FILE: index.html ---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revryze x Scenthound | Executive Proposal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>
+
+--- FILE: src/main.tsx ---
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+--- FILE: src/App.tsx ---
+import React, { useState, useMemo } from 'react';
+import { 
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, LabelList
+} from 'recharts';
+import { 
+  ShieldCheck, Zap, Rocket, AlertTriangle, Clock, Target, 
+  ArrowRight, PhoneCall, FileText, Users, CheckCircle2 
+} from 'lucide-react';
+
+type ModelType = 'Franchisee' | 'Revryze';
+
+// DATA: comparing "Distracted Operator" (Bottleneck) vs "Dedicated Engine" (Scale)
+const DATA = {
+  Franchisee: [
+    { stage: 'Total Leads', value: 850 },
+    { stage: 'Engaged Leads', value: 350 }, // Lower due to operational distraction
+    { stage: 'Members Sold', value: 45 }
+  ],
+  Revryze: [
+    { stage: 'Total Leads', value: 1250 },
+    { stage: 'Engaged Leads', value: 1100 }, // Higher due to dedicated team
+    { stage: 'Members Sold', value: 250 }
+  ]
+};
+
+const Card = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => (
+  <div className={`bg-neutral-900 border border-neutral-800 rounded-2xl p-6 transition-all ${className}`}>
+    {children}
+  </div>
+);
+
+const SectionTitle = ({ children, subtitle }: { children: React.ReactNode, subtitle?: string }) => (
+  <div className="mb-12 text-center">
+    <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">{children}</h2>
+    {subtitle && <p className="text-gray-400 text-lg max-w-2xl mx-auto">{subtitle}</p>}
+  </div>
+);
+
+export default function App() {
+  const [model, setModel] = useState<ModelType>('Revryze');
+  const [memberCount, setMemberCount] = useState(250);
+
+  const annualizedRevenue = useMemo(() => memberCount * 75 * 12, [memberCount]);
+  const chartColor = model === 'Revryze' ? '#00AEEF' : '#ef4444';
+
+  return (
+    <div className="min-h-screen pb-24 bg-[#0a0a0a] text-white font-sans selection:bg-[#00AEEF] selection:text-black">
+      
+      {/* HERO */}
+      <section className="relative pt-24 pb-20 px-6 max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-neutral-800 bg-neutral-900/80 text-sm font-semibold mb-8">
+            <ShieldCheck size={16} className="text-[#00AEEF]" />
+            <span className="text-gray-300 tracking-wide">SCENTHOUND x REVRYZE PILOT</span>
+          </div>
+          <h1 className="text-5xl md:text-8xl font-black mb-6 tracking-tighter leading-[0.9]">
+            STOP SELLING.<br />
+            <span className="text-[#00AEEF]">START BUILDING.</span>
+          </h1>
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto font-light leading-relaxed">
+            We install a US-based sales engine to remove execution risk and target <strong>250+ Members</strong> on Day 1.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+          {/* The Problem */}
+          <Card className="relative group hover:border-red-500/30">
+            <div className="absolute top-4 right-4 opacity-20"><AlertTriangle className="text-red-500" size={40} /></div>
+            <h3 className="text-red-500 font-bold uppercase tracking-widest text-xs mb-4">The Operational Bottleneck</h3>
+            <p className="text-2xl font-bold mb-6">"Divided Attention"</p>
+            <ul className="space-y-4 text-sm text-gray-400">
+              <li className="flex gap-3"><Clock size={16} className="text-red-500 shrink-0" /> Owner distracted by construction & permitting.</li>
+              <li className="flex gap-3"><AlertTriangle size={16} className="text-red-500 shrink-0" /> Speed-to-lead suffers due to on-site demands.</li>
+              <li className="flex gap-3"><Target size={16} className="text-red-500 shrink-0" /> Result: Leads age out, cash flow delays.</li>
+            </ul>
+          </Card>
+
+          {/* The Solution */}
+          <Card className="relative group border-[#00AEEF]/30 bg-neutral-900/50">
+            <div className="absolute top-4 right-4 opacity-20"><Zap className="text-[#00AEEF]" size={40} /></div>
+            <h3 className="text-[#00AEEF] font-bold uppercase tracking-widest text-xs mb-4">The Revryze Solution</h3>
+            <p className="text-2xl font-bold mb-6">"Dedicated Execution"</p>
+            <ul className="space-y-4 text-sm text-gray-400">
+              <li className="flex gap-3"><Zap size={16} className="text-[#00AEEF] shrink-0" /> 100% Dedicated US-Based Sales Team.</li>
+              <li className="flex gap-3"><CheckCircle2 size={16} className="text-[#00AEEF] shrink-0" /> Systemized Speed-to-Lead (Phone/SMS/Email).</li>
+              <li className="flex gap-3"><Rocket size={16} className="text-[#00AEEF] shrink-0" /> <strong>250+ Billed Members</strong> Objective.</li>
+            </ul>
+          </Card>
+        </div>
+      </section>
+
+      {/* UNIT ECONOMICS */}
+      <section className="py-20 px-6 bg-neutral-950">
+        <div className="max-w-5xl mx-auto">
+          <SectionTitle subtitle="Comparing 'Distracted Operator' vs 'Dedicated Sales Engine' models.">
+            The Unit Economics
+          </SectionTitle>
+
+          <div className="flex justify-center mb-12">
+            <div className="p-1 bg-neutral-900 rounded-lg border border-neutral-800 flex">
+              <button onClick={() => setModel('Franchisee')} className={`px-6 py-2 rounded-md text-sm font-bold transition-all ${model === 'Franchisee' ? 'bg-red-500 text-white' : 'text-gray-500'}`}>Distracted Operator</button>
+              <button onClick={() => setModel('Revryze')} className={`px-6 py-2 rounded-md text-sm font-bold transition-all ${model === 'Revryze' ? 'bg-[#00AEEF] text-black' : 'text-gray-500'}`}>Revryze Engine</button>
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-3 gap-8 items-center">
+            <div className="space-y-4 order-2 lg:order-1">
+              <div className="p-4 bg-neutral-900/50 rounded-xl border border-neutral-800">
+                <p className="text-gray-500 text-xs uppercase tracking-widest font-bold mb-1">Lead Engagement</p>
+                <p className={`text-lg font-bold ${model === 'Revryze' ? 'text-[#00AEEF]' : 'text-red-500'}`}>
+                  {model === 'Revryze' ? 'Rapid Response' : 'Delayed / Variable'}
+                </p>
+              </div>
+              <div className="p-4 bg-neutral-900/50 rounded-xl border border-neutral-800">
+                <p className="text-gray-500 text-xs uppercase tracking-widest font-bold mb-1">Projected Outcome</p>
+                <p className={`text-4xl font-black ${model === 'Revryze' ? 'text-[#00AEEF]' : 'text-red-500'}`}>
+                  {model === 'Revryze' ? '250 Members' : '45 Members'}
+                </p>
+              </div>
+            </div>
+
+            <div className="lg:col-span-2 h-[400px] w-full order-1 lg:order-2">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart layout="vertical" data={DATA[model]} margin={{ top: 20, right: 80, left: 40, bottom: 20 }}>
+                  <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#333" />
+                  <XAxis type="number" hide />
+                  <YAxis dataKey="stage" type="category" axisLine={false} tickLine={false} width={120} tick={{ fill: '#999', fontSize: 12, fontWeight: 700 }} />
+                  <Tooltip cursor={{fill: 'transparent'}} contentStyle={{ backgroundColor: '#171717', borderColor: '#333', color: '#fff' }} />
+                  <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={40}>
+                    {DATA[model].map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={chartColor} opacity={1 - index * 0.2} />
+                    ))}
+                    <LabelList dataKey="value" position="right" fill="#fff" style={{ fontSize: '14px', fontWeight: 'bold' }} />
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* COST OF INACTION */}
+      <section className="py-20 px-6">
+        <div className="max-w-4xl mx-auto">
+          <SectionTitle subtitle="Revenue impact based on opening member count ($75 Avg Value).">
+            The Cost of Inaction
+          </SectionTitle>
+          
+          <Card className="p-10 text-center">
+             <div className="mb-10">
+              <label className="text-gray-500 text-xs font-bold uppercase tracking-widest">Opening Members</label>
+              <div className="text-6xl font-black text-white mt-2 mb-8">{memberCount}</div>
+              <input type="range" min="50" max="350" step="5" value={memberCount} onChange={(e) => setMemberCount(parseInt(e.target.value))} className="w-full h-2 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-[#00AEEF]" />
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8 pt-8 border-t border-neutral-800">
+              <div className="text-left">
+                <p className="text-gray-500 text-xs uppercase font-bold mb-1">Annualized Revenue Run Rate</p>
+                <p className={`text-5xl font-black ${memberCount >= 250 ? 'text-[#00AEEF]' : 'text-white'}`}>
+                  ${annualizedRevenue.toLocaleString()}
+                </p>
+              </div>
+              <div className="flex items-center justify-end">
+                {memberCount < 150 ? (
+                  <div className="flex items-center gap-2 text-red-500 font-bold"><AlertTriangle /> High Churn Risk</div>
+                ) : memberCount >= 250 ? (
+                  <div className="flex items-center gap-2 text-[#00AEEF] font-bold"><Rocket /> Guarantee Zone</div>
+                ) : null}
+              </div>
+            </div>
+          </Card>
+        </div>
+      </section>
+
+      {/* PROOF VAULT */}
+      <section className="py-24 px-4 bg-neutral-950">
+        <div className="max-w-6xl mx-auto">
+          <SectionTitle subtitle="Real conversations, real phone sales results, total domination.">
+            The "Proof" Vault
+          </SectionTitle>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <a href="/call.wav" target="_blank" className="group">
+              <Card className="h-full flex flex-col items-center text-center group-hover:bg-neutral-800 group-hover:translate-y-[-4px] transition-all">
+                <div className="w-16 h-16 bg-neutral-800 rounded-full flex items-center justify-center mb-6 text-[#00AEEF] group-hover:scale-110 transition-transform">
+                  <PhoneCall size={32} />
+                </div>
+                <h4 className="text-xl font-bold mb-2">Live Sales Call Analysis</h4>
+                <p className="text-gray-400 text-sm">Live US-Based Sales Conversation. Hear the closing mechanics.</p>
+              </Card>
+            </a>
+
+            <a href="/beem.pdf" target="_blank" className="group">
+              <Card className="h-full flex flex-col items-center text-center group-hover:bg-neutral-800 group-hover:translate-y-[-4px] transition-all">
+                <div className="w-16 h-16 bg-neutral-800 rounded-full flex items-center justify-center mb-6 text-[#00AEEF] group-hover:scale-110 transition-transform">
+                  <FileText size={32} />
+                </div>
+                <h4 className="text-xl font-bold mb-2">beem Light Sauna™</h4>
+                <p className="text-gray-400 text-sm">Remote sales pre-sale case study. High-growth mechanics.</p>
+              </Card>
+            </a>
+
+            <a href="/drybar.pdf" target="_blank" className="group">
+              <Card className="h-full flex flex-col items-center text-center group-hover:bg-neutral-800 group-hover:translate-y-[-4px] transition-all">
+                <div className="w-16 h-16 bg-neutral-800 rounded-full flex items-center justify-center mb-6 text-[#00AEEF] group-hover:scale-110 transition-transform">
+                  <Users size={32} />
+                </div>
+                <h4 className="text-xl font-bold mb-2">RockBox Fitness</h4>
+                <p className="text-gray-400 text-sm">Volume scaling case study. Systemized phone sales output.</p>
+              </Card>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* PRICING */}
+      <section className="py-20 px-6 bg-[#00AEEF] text-black">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-6xl font-black mb-6 text-white">Pilot vs. Standard Rollout</h2>
+            <p className="text-xl font-medium max-w-2xl mx-auto opacity-90">
+              The Pilot Program is "Risk-Discounted." You save the capital upfront, rather than paying for a refund guarantee on the backend.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 items-stretch">
+             {/* Option A */}
+             <div className="bg-white p-8 rounded-3xl shadow-xl flex flex-col">
+                <div className="mb-6">
+                  <span className="bg-neutral-900 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">Option A: The Specialist</span>
+                  <h3 className="text-4xl font-black mt-4 mb-1">2 Studios</h3>
+                  <p className="text-gray-500 text-sm font-bold">Pilot Investment</p>
+                </div>
+                <div className="mt-auto space-y-4">
+                  <div className="flex justify-between items-center border-b border-gray-100 pb-2">
+                    <span className="text-gray-400 font-medium">Standard Price</span>
+                    <span className="text-gray-400 line-through decoration-red-500">$25,000</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="font-bold">Pilot Price</span>
+                    <span className="text-4xl font-black tracking-tight">$15,000</span>
+                  </div>
+                  <p className="text-xs text-gray-500 italic">*Save $10k per unit upfront. (No backend refund).</p>
+                </div>
+             </div>
+
+             {/* Option B */}
+             <div className="bg-neutral-900 p-8 rounded-3xl shadow-2xl flex flex-col text-white ring-4 ring-white/20">
+                <div className="mb-6">
+                  <span className="bg-[#00AEEF] text-black text-xs font-bold px-3 py-1 rounded-full uppercase">Option B: Best Value</span>
+                  <h3 className="text-4xl font-black mt-4 mb-1">3 Studios</h3>
+                  <p className="text-gray-400 text-sm font-bold">Pilot Investment</p>
+                </div>
+                <div className="mt-auto space-y-4">
+                  <div className="flex justify-between items-center border-b border-gray-800 pb-2">
+                    <span className="text-gray-500 font-medium">Standard Price</span>
+                    <span className="text-gray-600 line-through decoration-red-500">$25,000</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="font-bold text-[#00AEEF]">Pilot Price</span>
+                    <span className="text-4xl font-black tracking-tight text-[#00AEEF]">$10,000</span>
+                  </div>
+                  <p className="text-xs text-gray-400 italic">*Save $15k per unit upfront. Maximum capital efficiency.</p>
+                </div>
+             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-12 border-t border-neutral-900 text-center px-4">
+        <p className="text-gray-600 text-sm font-bold uppercase tracking-widest mb-2">Revryze Operations Inc.</p>
+        <p className="text-gray-700 text-xs">Proprietary and Confidential. Scenthound Executive Team Only.</p>
+      </footer>
+    </div>
+  );
+}
