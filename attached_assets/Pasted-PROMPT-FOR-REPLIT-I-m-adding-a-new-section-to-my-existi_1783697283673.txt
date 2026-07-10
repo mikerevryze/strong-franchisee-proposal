@@ -1,0 +1,42 @@
+PROMPT FOR REPLIT:
+I'm adding a new section to my existing STRONG Pilates franchisee proposal app. This is franchisee-facing. Do not rebuild anything that exists. Inspect the current repo first, match its stack, routing, and component patterns, then extend it. Add the new section into the existing proposal flow as its own section/route consistent with how the current sections are structured.
+What to add: a "Campaign Timeline & Funnel" section.
+This shows a prospective STRONG studio owner how our 20-week prelaunch campaign works: a 16-week founding-first prelaunch counting up through pricing tiers, plus a 4-week post-open conversion window.
+Make the timeline interactive. Horizontal timeline across the top with the 5 blocks. Clicking/tapping a block expands its detail below (or in a panel). Default to Block 1 open. On mobile, stack it and keep it tappable. Show a visual progress sense of weeks 1 through 20 and where "doors open" lands (end of Block 4 / week 16). Mark the tier rollovers and the trial flip (week 15) on the timeline itself.
+The 5 blocks:
+Block 1 (Weeks 1-4): Tier 1 founding, lowest rate, locked for life. Offers: 4-session and unlimited. Pricing moves to Tier 2 once the tier's membership cap fills (typically around end of week 4). Grace-week scoop-up in the first week of Block 2 lets late movers still book Tier 1.
+Block 2 (Weeks 5-8): Tier 2 founding. Grace-week scoop-up honors Tier 1 for anyone booking that first week. Cap fills, pricing moves to Tier 3 (typically around end of week 8).
+Block 3 (Weeks 9-12): Tier 3 founding, the final founding tier. The 8-session offer drops here as a scoop-up for fence-sitters (never call it an 8-pack). Grace-week scoop-up honors Tier 2 in week 1 of the block. Founders friends-free perk activates: a founding member's friends come free for the first couple weeks once the friend sets up a free trial.
+Block 4 (Weeks 13-16): Founding pricing runs through the end of this block. Weeks 13-14 stay founding and closing. First trial drop goes live at week 15, two weeks out from open, then runs the countdown into opening week. Trials sold or given here can roll into a Tier 3 founding membership after open (founding roll-over). Doors open at the end of the block.
+Block 5 (Opening week + 4 weeks post-open): Post-open conversion. Open-studio trial offer. Trial-upgrade scoop-up pushes every trial buyer and free-trial holder who hasn't converted to upgrade to a Tier 3 founding membership. Founding roll-over honored at Tier 3. After the 4 post-open weeks, rate reverts to standard.
+Key mechanics to surface as short, simple callouts (keep detail light, this is a prospect not an operator):
+
+Tiers are driven by membership count, not dates. Each tier has a cap; when it fills, pricing steps up. Block dates just reflect where the cap usually lands.
+Scoop-ups = lower-friction catch offers for people not ready for the main offer (grace-week, 8-session, trial-upgrade).
+Referral runs in parallel the whole campaign: refer a friend, both get $25 credit, ~2 touches/week.
+CDL (community-driven leads) from pop-ups, partner booths, events, and group workouts feed the same pipeline as paid leads.
+
+Two lanes per block: show a simple split of what the Studio does vs what Revryze does. Keep it brief, one to three short lines each. Studio supplies all creative, runs pop-ups/group workouts, captures leads. Revryze runs the ads, owns 100% of lead follow-up, calling, and closing. This split is a selling point, so make it clean and scannable, not a wall of text.
+Use our operational language for the specifics (founding members, tiers, trials, member counts, scoop-ups, blocks, weeks). Use STRONG's brand voice for section framing and headlines only: direct, punchy, confident, no fluff, no exclamation marks, no clichés, American English.
+BRAND SYSTEM (apply this across the ENTIRE proposal, not just the new section, so everything is consistent):
+Colors:
+
+Black #000000 and White #FFFFFF are primary. The proposal is black-and-white first.
+Sky Blue #97CAEA is a highlight/accent ONLY. Use it sparingly: active timeline block, tier markers, the "doors open" marker, small emphasis. Never large fills, never as a background wash, never on the logo.
+
+Fonts: I don't have the licensed Kessel 105 webfont files. Use free Google Font substitutes that render reliably in Replit:
+
+Headings: Anton (or Archivo Black if Anton reads too condensed) as the heavy display face, all-caps, tight, to stand in for Kessel 105 Heavy.
+Body: Montserrat (this is already an approved STRONG secondary font, so it's on-brand).
+Add a code comment noting these are substitutes and production should swap in licensed Kessel 105 Heavy/Medium/Book.
+Do not use any cursive/script font.
+
+Voice and copy rules (enforce across the whole proposal):
+
+Direct, confident, understated. Short and punchy. Omit needless words.
+No exclamation marks. No clichés. No corny or scientific language. No em dashes. American English.
+"we" perspective, not "I". Active voice.
+
+Photography/visual style if any imagery or texture is used: raw, high-energy, high-contrast, dark. No stock-photo look, no over-brightened images.
+Audit the existing proposal sections and bring their colors, fonts, and headline voice into line with the above so the new section doesn't look bolted on. If existing sections use off-brand colors or fonts, normalize them to this system.
+Keep everything responsive. Match the component and styling conventions already in the repo (same CSS approach, same design tokens if they exist). Show me the timeline section first when done.

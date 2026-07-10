@@ -86,6 +86,8 @@ export default {
         sans: ["var(--font-sans)"],
         serif: ["var(--font-serif)"],
         mono: ["var(--font-mono)"],
+        display: ["Anton", "sans-serif"],
+        body: ["Montserrat", "var(--font-sans)"],
       },
       keyframes: {
         "accordion-down": {

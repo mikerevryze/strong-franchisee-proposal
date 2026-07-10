@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import { Link } from 'wouter';
 import {
   ShieldCheck,
   Shield,
@@ -54,6 +53,141 @@ const CAROUSEL_STEPS = [
     Icon: Shield,
     title: '250 Members or Prorated Refund',
     body: "Provide 250 community leads and complete your $25,000 Meta ad spend — if we deliver fewer than 250 members, we refund you dollar-for-dollar for every member short. No fine print. Just accountability.",
+  },
+];
+
+/* BRAND FONT NOTE: Anton substitutes for licensed Kessel 105 Heavy.
+ * Montserrat is an approved STRONG secondary font.
+ * Sky blue accent #97CAEA — use sparingly on active states and key markers only.
+ * Production: swap Anton/Montserrat for licensed Kessel 105 Heavy/Medium/Book. */
+const SKY = '#97CAEA';
+
+type TimelineBlock = {
+  id: number;
+  label: string;
+  weeks: string;
+  tierLabel: string;
+  markerLabel: string;
+  title: string;
+  tagline: string;
+  studio: string[];
+  revryze: string[];
+  mechanics: { label: string; text: string }[];
+};
+
+const TIMELINE_BLOCKS: TimelineBlock[] = [
+  {
+    id: 1,
+    label: 'BLOCK 1',
+    weeks: 'Weeks 1–4',
+    tierLabel: 'TIER 1 FOUNDING',
+    markerLabel: 'FOUNDING OPENS',
+    title: 'Tier 1 Founding',
+    tagline: 'Lowest rate, locked for life.',
+    studio: [
+      'Supply all creative assets to Revryze',
+      'Run pop-up events, group workouts, and community outreach',
+      'Capture and submit community-driven leads',
+    ],
+    revryze: [
+      'Launch and manage all Meta campaigns',
+      'Contact every incoming lead via text, email, and phone',
+      'Close on 4-session and unlimited founding offers',
+    ],
+    mechanics: [
+      { label: 'TIER CAP', text: 'Tiers are driven by count, not dates. Tier 1 fills around end of Week 4. When the cap fills, pricing steps to Tier 2.' },
+      { label: 'GRACE WEEK', text: 'Anyone booking in Week 5 still gets Tier 1 pricing — a scoop-up window for late movers who just missed the cap.' },
+    ],
+  },
+  {
+    id: 2,
+    label: 'BLOCK 2',
+    weeks: 'Weeks 5–8',
+    tierLabel: 'TIER 2 FOUNDING',
+    markerLabel: 'TIER STEP',
+    title: 'Tier 2 Founding',
+    tagline: 'Grace window smooths the pricing step.',
+    studio: [
+      'Continue pop-up events and B2B partnerships',
+      'Keep submitting community-driven leads',
+    ],
+    revryze: [
+      'Honor Tier 1 for all bookings in Week 5 (grace week)',
+      'Shift all ad messaging to Tier 2 offers',
+      'Work every lead until the Tier 2 cap fills',
+    ],
+    mechanics: [
+      { label: 'TIER CAP', text: 'Tier 2 fills around end of Week 8. When it fills, pricing steps to Tier 3. Block dates reflect where caps typically land — actual timing is driven by sales volume.' },
+      { label: 'REFERRAL', text: 'Referral program runs the full campaign: refer a friend, both get $25 credit, roughly two touches per week.' },
+    ],
+  },
+  {
+    id: 3,
+    label: 'BLOCK 3',
+    weeks: 'Weeks 9–12',
+    tierLabel: 'TIER 3 FOUNDING',
+    markerLabel: 'FINAL FOUNDING TIER',
+    title: 'Tier 3 Founding',
+    tagline: 'Final founding tier. 8-session scoop-up for fence-sitters.',
+    studio: [
+      'Activate the founders friends-free perk',
+      'Push hard on community lead submissions into the final stretch',
+    ],
+    revryze: [
+      'Honor Tier 2 for all bookings in Week 9 (grace week)',
+      'Drop the 8-session offer as a scoop-up for undecided leads',
+      "Activate founders friends-free: founding member's friends come free for the first couple weeks once they set up a trial",
+    ],
+    mechanics: [
+      { label: 'SCOOP-UP', text: 'The 8-session offer is a lower-friction entry for fence-sitters. Never call it an "8-pack" — it is a scoop-up, not a package.' },
+      { label: 'FRIENDS-FREE', text: "A founding member's friends get free access for the first couple weeks post-open, once the friend sets up a free trial." },
+    ],
+  },
+  {
+    id: 4,
+    label: 'BLOCK 4',
+    weeks: 'Weeks 13–16',
+    tierLabel: 'FOUNDING CLOSE + TRIAL LAUNCH',
+    markerLabel: 'TRIAL W15 / OPEN W16',
+    title: 'Founding Close + Trial Launch',
+    tagline: 'Founding pricing closes out. Trials launch two weeks before open.',
+    studio: [
+      'Final community lead push',
+      'Begin pre-open operations and team preparation',
+    ],
+    revryze: [
+      'Weeks 13–14: close all remaining founding memberships',
+      'Week 15: launch first trial drop, two weeks before open',
+      'Run countdown campaign through opening week',
+      'Trial buyers from Block 4 can roll over to Tier 3 founding post-open',
+    ],
+    mechanics: [
+      { label: 'TRIAL FLIP', text: 'Trial drop goes live at Week 15. Any trial buyer from Block 4 can roll into a Tier 3 founding membership after open.' },
+      { label: 'DOORS OPEN', text: 'Studio opens at end of Week 16. Founding pricing locks. Any new member after open goes to standard rate.' },
+    ],
+  },
+  {
+    id: 5,
+    label: 'BLOCK 5',
+    weeks: 'Post-Open (4 weeks)',
+    tierLabel: 'POST-OPEN CONVERSION',
+    markerLabel: 'DOORS OPEN',
+    title: 'Post-Open Conversion',
+    tagline: 'Convert every trial. Close the founding window for good.',
+    studio: [
+      'Run the studio and build the community',
+      'Post-open group workouts drive new trial bookings',
+    ],
+    revryze: [
+      'Open-studio trial offer runs for 4 weeks',
+      'Trial-upgrade scoop-up targets every unconverted trial holder',
+      'Founding roll-over honored at Tier 3 for eligible trial buyers',
+      'After 4 weeks, rate reverts to standard permanently',
+    ],
+    mechanics: [
+      { label: 'TRIAL UPGRADE', text: 'Every trial buyer and free-trial holder gets a push to upgrade to Tier 3 founding before the window closes.' },
+      { label: 'FOUNDING CLOSE', text: 'After the 4 post-open weeks, founding pricing is gone. Anyone who did not convert goes to standard rate.' },
+    ],
   },
 ];
 
@@ -267,6 +401,126 @@ function AudioCard() {
   );
 }
 
+function CampaignTimeline() {
+  const [active, setActive] = useState(0);
+  const [visible, setVisible] = useState(true);
+
+  const select = (i: number) => {
+    if (i === active) return;
+    setVisible(false);
+    setTimeout(() => { setActive(i); setVisible(true); }, 150);
+  };
+
+  const block = TIMELINE_BLOCKS[active];
+
+  return (
+    <div data-testid="campaign-timeline">
+      {/* Block navigation tabs */}
+      <div className="overflow-x-auto -mx-2 px-2">
+        <div className="flex min-w-[540px] border border-[#262626] rounded-xl overflow-hidden">
+          {TIMELINE_BLOCKS.map((b, i) => {
+            const isActive = i === active;
+            return (
+              <button
+                key={b.id}
+                onClick={() => select(i)}
+                className="relative flex-1 flex flex-col items-start px-3 md:px-5 py-4 transition-colors duration-150 border-r last:border-r-0 border-[#262626]"
+                style={{ background: isActive ? '#0f0f0f' : 'transparent' }}
+                data-testid={`timeline-tab-${b.id}`}
+              >
+                <div
+                  className="absolute top-0 left-0 right-0 h-[2px] transition-colors duration-150"
+                  style={{ background: isActive ? SKY : 'transparent' }}
+                />
+                <span
+                  className="text-[9px] font-bold uppercase tracking-widest mb-1.5"
+                  style={{ color: isActive ? SKY : '#4b5563' }}
+                >
+                  {b.label}
+                </span>
+                <span
+                  className="text-xs font-semibold leading-tight"
+                  style={{ color: isActive ? '#ffffff' : '#6b7280' }}
+                >
+                  {b.weeks}
+                </span>
+                <span
+                  className="mt-2 text-[8px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded border leading-tight"
+                  style={{
+                    borderColor: isActive ? `${SKY}44` : '#262626',
+                    color: isActive ? `${SKY}bb` : '#374151',
+                    background: isActive ? `${SKY}0d` : 'transparent',
+                  }}
+                >
+                  {b.markerLabel}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Detail panel */}
+      <div
+        className="mt-6 transition-opacity duration-150"
+        style={{ opacity: visible ? 1 : 0 }}
+        data-testid="timeline-detail"
+      >
+        {/* Heading */}
+        <div className="mb-6">
+          <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: SKY }}>
+            {block.tierLabel}
+          </p>
+          <h3
+            className="text-white font-display text-2xl md:text-3xl uppercase tracking-wide leading-none mb-2"
+            data-testid="timeline-block-title"
+          >
+            {block.title}
+          </h3>
+          <p className="text-gray-500 text-sm">{block.tagline}</p>
+        </div>
+
+        {/* Two-lane split */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          <div className="p-5 rounded-xl border" style={{ background: '#0f0f0f', borderColor: '#262626' }}>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-gray-600 mb-3">STUDIO</p>
+            <ul className="space-y-2.5">
+              {block.studio.map((line, idx) => (
+                <li key={idx} className="flex gap-2 text-sm text-gray-300 leading-snug" data-testid={`studio-line-${idx}`}>
+                  <span className="text-gray-700 shrink-0 mt-0.5">—</span>
+                  {line}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="p-5 rounded-xl border" style={{ background: '#0f0f0f', borderColor: `${SKY}30` }}>
+            <p className="text-[10px] font-bold uppercase tracking-widest mb-3" style={{ color: SKY }}>REVRYZE</p>
+            <ul className="space-y-2.5">
+              {block.revryze.map((line, idx) => (
+                <li key={idx} className="flex gap-2 text-sm text-gray-300 leading-snug" data-testid={`revryze-line-${idx}`}>
+                  <span className="shrink-0 mt-0.5" style={{ color: `${SKY}60` }}>—</span>
+                  {line}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Mechanics callouts */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {block.mechanics.map((m, idx) => (
+            <div key={idx} className="p-4 rounded-lg border" style={{ borderColor: '#1c1c1c' }} data-testid={`mechanic-${idx}`}>
+              <p className="text-[9px] font-bold uppercase tracking-widest text-gray-700 mb-1.5">{m.label}</p>
+              <p className="text-xs text-gray-500 leading-relaxed">{m.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function FranchiseePage() {
   const [studios, setStudios] = useState(1);
   const [members, setMembers] = useState(250);
@@ -299,7 +553,7 @@ export default function FranchiseePage() {
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#262626] bg-[#171717] text-sm font-semibold mb-8" data-testid="badge-brand">
             <span className="text-[#A8CFEA] tracking-wide">STRONG PILATES x REVRYZE</span>
           </div>
-          <h1 className="text-5xl md:text-8xl font-black mb-6 tracking-tighter leading-[0.9]" data-testid="text-hero-title">
+          <h1 className="text-5xl md:text-8xl font-display uppercase mb-6 tracking-wide leading-[0.9]" data-testid="text-hero-title">
             250 MEMBERS.<br />
             <span className="text-[#A8CFEA]">OR YOU GET REFUNDED.</span>
           </h1>
@@ -365,7 +619,7 @@ export default function FranchiseePage() {
       <section className="py-20 px-6 bg-[#0a0a0a] border-t border-[#262626]" data-testid="section-how-it-works">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4" data-testid="text-how-title">How Revryze Works.</h2>
+            <h2 className="text-3xl md:text-5xl font-display uppercase tracking-wide mb-4" data-testid="text-how-title">How Revryze Works.</h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto" data-testid="text-how-subtitle">One team. One feedback loop. No excuses.</p>
           </div>
 
@@ -373,11 +627,26 @@ export default function FranchiseePage() {
         </div>
       </section>
 
-      {/* ── SECTION 3: PRICING ── */}
+      {/* ── SECTION 3: CAMPAIGN TIMELINE ── */}
+      <section className="py-20 px-6 bg-[#0a0a0a] border-t border-[#262626]" data-testid="section-campaign-timeline">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-5xl font-display uppercase tracking-wide mb-4" data-testid="text-timeline-title">
+              THE 20-WEEK PLAN.
+            </h2>
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto" data-testid="text-timeline-subtitle">
+              Four founding tiers, a trial window, and a post-open conversion push. Here is exactly what happens across every week of your pre-launch.
+            </p>
+          </div>
+          <CampaignTimeline />
+        </div>
+      </section>
+
+      {/* ── SECTION 4: PRICING ── */}
       <section className="py-20 px-6 border-t border-[#262626]" data-testid="section-pricing">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4" data-testid="text-pricing-title">250 Members. Guaranteed.</h2>
+            <h2 className="text-3xl md:text-5xl font-display uppercase tracking-wide mb-4" data-testid="text-pricing-title">250 Members. Guaranteed.</h2>
             <p className="text-gray-400 text-lg" data-testid="text-pricing-subtitle">One fee. One team. One number to hit.</p>
           </div>
 
@@ -450,7 +719,7 @@ export default function FranchiseePage() {
       <section className="py-20 px-6 bg-neutral-950 border-t border-[#262626]" data-testid="section-calculator">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4" data-testid="text-calc-title">See Your Numbers.</h2>
+            <h2 className="text-3xl md:text-5xl font-display uppercase tracking-wide mb-4" data-testid="text-calc-title">See Your Numbers.</h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto" data-testid="text-calc-subtitle">Adjust the sliders. See your investment, your revenue, and your path to break-even.</p>
           </div>
 
@@ -669,7 +938,7 @@ export default function FranchiseePage() {
       <section className="py-20 px-6 bg-[#0a0a0a] border-t border-[#262626]" data-testid="section-proof">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4" data-testid="text-proof-title">Real Results. Real Calls.</h2>
+            <h2 className="text-3xl md:text-5xl font-display uppercase tracking-wide mb-4" data-testid="text-proof-title">Real Results. Real Calls.</h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto" data-testid="text-proof-subtitle">Listen to live sales. See the case studies.</p>
           </div>
 
@@ -710,7 +979,7 @@ export default function FranchiseePage() {
       <section className="py-20 px-6 border-t border-[#262626]" data-testid="section-next-steps">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4" data-testid="text-steps-title">Let's Fill Your Studio.</h2>
+            <h2 className="text-3xl md:text-5xl font-display uppercase tracking-wide mb-4" data-testid="text-steps-title">Let's Fill Your Studio.</h2>
             <p className="text-gray-400 text-lg" data-testid="text-steps-subtitle">Here's exactly what happens when you move forward.</p>
           </div>
 
